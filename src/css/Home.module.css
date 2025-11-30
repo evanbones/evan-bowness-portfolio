@@ -1,0 +1,120 @@
+.hero {
+  text-align: center;
+  padding: 4rem 0;
+  margin-bottom: 3rem;
+}
+
+.hero h1 {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: 5rem;
+  color: var(--cream);
+  text-shadow: 
+    3px 3px 0 var(--burnt-orange),
+    6px 6px 0 var(--rust-red),
+    9px 9px 0 var(--avocado-green);
+  margin-bottom: 1rem;
+  letter-spacing: 2px;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.subtitle {
+  font-family: 'Courier New', monospace;
+  font-size: 1.5rem;
+  color: var(--mustard-yellow);
+  letter-spacing: 3px;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  text-shadow: 0 0 5px rgba(232, 180, 79, 0.3);
+}
+
+.contact-section {
+  border-color: var(--avocado-green);
+}
+
+.contact-form {
+  margin-top: 2rem;
+  max-width: 600px;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  color: var(--mustard-yellow);
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.8rem;
+  background: var(--dark-brown);
+  border: 3px solid var(--burnt-orange);
+  color: var(--cream);
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--avocado-green);
+  box-shadow: 5px 5px 0 rgba(123, 158, 111, 0.3);
+}
+
+.submit-btn {
+  background: var(--burnt-orange);
+  color: var(--cream);
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transform: skew(-5deg);
+  transition: all 0.3s ease;
+  font-family: 'Courier New', monospace;
+  margin-top: 1rem;
+}
+
+.submit-btn:hover {
+  background: var(--avocado-green);
+  transform: skew(-5deg) scale(1.05);
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.3);
+  text-shadow: 0 0 5px rgba(255,255,255,0.4);
+}
+
+.contact-email {
+  margin-top: 2rem;
+  font-size: 1.1rem;
+}
+
+.contact-email a {
+  color: var(--burnt-orange);
+  text-decoration: none;
+  border-bottom: 2px solid var(--burnt-orange);
+  transition: all 0.3s ease;
+}
+
+.contact-email a:hover {
+  color: var(--avocado-green);
+  border-bottom-color: var(--avocado-green);
+  text-shadow: 0 0 5px var(--avocado-green);
+}
+
+@media (max-width: 768px) {
+  .hero h1 { font-size: 3rem; }
+}

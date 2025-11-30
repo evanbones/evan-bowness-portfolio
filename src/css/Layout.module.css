@@ -1,0 +1,123 @@
+.nav-bar {
+  background: #2A1F1A;
+  border-bottom: 3px solid var(--burnt-orange);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-left .home-link {
+  font-family: 'Fraunces', serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--mustard-yellow);
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+
+.nav-right {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.nav-right a {
+  color: var(--cream);
+  text-decoration: none;
+  font-weight: bold;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  border-bottom: 2px solid transparent;
+  text-transform: uppercase;
+}
+
+.nav-right a:hover {
+  color: var(--burnt-orange);
+  border-bottom: 2px solid var(--burnt-orange);
+  text-shadow: 0 0 8px rgba(212, 119, 78, 0.6);
+}
+
+.nav-right svg {
+  transition: transform 0.3s ease;
+}
+
+.nav-right a:hover svg {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 5px var(--burnt-orange));
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.page-header {
+  text-align: center;
+  padding: 3rem 0;
+  margin-bottom: 2rem;
+}
+
+.page-header h1 {
+  font-family: 'Fraunces', serif;
+  font-size: 4rem;
+  color: var(--cream);
+  text-shadow: 
+    3px 3px 0 var(--burnt-orange),
+    6px 6px 0 var(--rust-red);
+  letter-spacing: 2px;
+}
+
+/* Footer */
+.footer {
+  background: #2A1F1A;
+  border-top: 3px solid var(--burnt-orange);
+  padding: 2rem;
+  margin-top: 4rem;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  color: var(--cream);
+  text-decoration: none;
+  font-weight: bold;
+  letter-spacing: 1px;
+  transition: color 0.3s ease;
+  text-transform: uppercase;
+}
+
+.footer-links a:hover {
+  color: var(--burnt-orange);
+  text-shadow: 0 0 5px var(--burnt-orange);
+}
+
+.copyright {
+  color: var(--warm-tan);
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 768px) {
+  .nav-bar { padding: 1rem; }
+  .nav-right { gap: 1rem; }
+  .container { padding: 1rem; }
+}
