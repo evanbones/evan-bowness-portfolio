@@ -77,7 +77,7 @@ export default function Home() {
         {/* Contact Section */}
         <section className={`${cards['vinyl-card']} ${home['contact-section']}`}>
           <h2>GET IN TOUCH</h2>
-          <p>Have a project in mind? Let's work together!</p>
+          <p>Have a project in mind? Let&apos;s work together!</p>
           <form onSubmit={handleSubmit} className={home['contact-form']}>
             <div className={home['form-group']}>
               <label htmlFor="name">Name</label>
