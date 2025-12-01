@@ -47,10 +47,10 @@ export default function Projects() {
             <span className={cards['genre-tag']}>TypeScript</span>
           </div>
           <div className={cards['project-links']}>
-            <a href="https://github.com/evanbones" target="_blank" rel="noopener noreferrer" className={cards['project-link']}>
+            <a href="https://github.com/evanbones/evan-bowness-portfolio" target="_blank" rel="noopener noreferrer" className={cards['project-link']}>
               VIEW CODE
             </a>
-            <a href="#" className={cards['project-link']}>LIVE DEMO</a>
+            <a href="https://evanbowness.dev/" className={cards['project-link']}>LIVE DEMO</a>
           </div>
         </section>
 

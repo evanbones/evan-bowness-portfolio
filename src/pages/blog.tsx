@@ -23,6 +23,26 @@ const MOCK_REVIEWS = [
 const ACTIVE_OFFSET = 2; 
 const MAX_RENDER_DIST = 24; 
 
+function useAnimatedText(text) {
+  const [display, setDisplay] = useState(text);
+  const [isFadingOut, setIsFadingOut] = useState(false);
+
+  useEffect(() => {
+    if (text !== display) {
+      setIsFadingOut(true);
+      
+      const timer = setTimeout(() => {
+        setDisplay(text);
+        setIsFadingOut(false);
+      }, 200); 
+
+      return () => clearTimeout(timer);
+    }
+  }, [text, display]);
+
+  return { display, isFadingOut };
+}
+
 export default function Blog() {
   const [scrollPos, setScrollPos] = useState(-ACTIVE_OFFSET); 
   const [showDetail, setShowDetail] = useState(false);
@@ -63,8 +83,11 @@ export default function Blog() {
   if (activeIndex < 0) activeIndex += total;
   const clickableAlbum = processedReviews[activeIndex];
 
+  const activeArtist = clickableAlbum?.artist || '';
+  const { display: animatedArtistText, isFadingOut } = useAnimatedText(activeArtist);
+
   useEffect(() => {
-    const handleScroll = (e: WheelEvent) => {
+    const handleScroll = (e) => {
       if (showDetail) return;
       e.preventDefault(); 
       setScrollPos((prev) => {
@@ -79,7 +102,7 @@ export default function Blog() {
 
   return (
     <>
-      <Head><title>Crate Digging - Evan Bowness</title></Head>
+      <Head><title>Music Blog - Evan Bowness</title></Head>
 
       <style jsx global>{`
         body {
@@ -97,18 +120,23 @@ export default function Blog() {
           position: absolute;
           top: 50%;
           left: 50%;
-          transform: translate(-50%, -50%) rotate(-5deg);
+          transform: translate(-50%, -50%); 
           font-family: 'Impact', 'Arial Black', sans-serif;
-          font-size: 15vw;
-          font-weight: 900;
+          font-size: 15vw; /* Massive */
           text-transform: uppercase;
-          color: transparent;
-          -webkit-text-stroke: 2px rgba(244, 185, 66, 0.05);
-          letter-spacing: -0.02em;
+          
+          color: #f5f0e8; 
+          opacity: 0.08;
+          
+          letter-spacing: -0.05em;
           white-space: nowrap;
           pointer-events: none;
-          z-index: 1;
-          transition: all 0.3s ease;
+          z-index: 0; 
+          transition: opacity 0.2s ease-in-out;
+        }
+
+        .floating-text.fading-out {
+            opacity: 0;
         }
 
         .back-btn {
@@ -147,8 +175,8 @@ export default function Blog() {
       <div className="crate-container">
         {!showDetail && (
           <>
-            <div className="floating-text">
-               {clickableAlbum?.artist}
+            <div className={`floating-text ${isFadingOut ? 'fading-out' : ''}`}>
+               {animatedArtistText}
             </div>
 
             <header className={crate['crate-header']}>
@@ -180,7 +208,7 @@ export default function Blog() {
             <div className={crate['crate-scene']}>
                
                <div className={crate['crate-structure']}>
-                  <div className={`${crate['crate-side']} ${crate.front}`}>
+                  <div className={`${crate['crate-side']} ${crate.front} ${crate['crate-texture']}`}>
                      <div className={`${crate['crate-sticker']} ${crate.s1}`}>FRESH FINDS</div>
                      <div className={`${crate['crate-sticker']} ${crate.s2}`}>STAFF PICK</div>
                      <div className={crate.barcode}>
@@ -188,8 +216,8 @@ export default function Blog() {
                         <span style={{letterSpacing: '3px', display:'block', marginTop:'2px'}}>||| || ||</span>
                      </div>
                   </div>
-                  <div className={`${crate['crate-side']} ${crate.left}`}></div>
-                  <div className={`${crate['crate-side']} ${crate.right}`}></div>
+                  <div className={`${crate['crate-side']} ${crate.left} ${crate['crate-texture']}`}></div>
+                  <div className={`${crate['crate-side']} ${crate.right} ${crate['crate-texture']}`}></div>
                </div>
 
                <div className={crate['album-stack']}>
@@ -199,7 +227,7 @@ export default function Blog() {
                     while (dist > total / 2) dist -= total;
                     while (dist < -total / 2) dist += total;
 
-                    if (dist < -2 || dist > MAX_RENDER_DIST) return null;
+                    if (dist < -5 || dist > MAX_RENDER_DIST) return null;
 
                     let yTrans = 0; 
                     let zTrans = 0;
@@ -249,15 +277,16 @@ export default function Blog() {
                         key={`${review.id}-${i}`}
                         className={crate['album-card-3d']}
                         style={{
-                          zIndex: zIndex,
-                          opacity: opacity,
-                          filter: `brightness(${brightness})`,
-                          transform: `translate3d(0, ${yTrans}px, ${zTrans}px) rotateX(${rotateX}deg)`,
-                          borderColor: isActive ? '#f4b942' : 'rgba(255,255,255,0.05)',
-                          cursor: isActive ? 'pointer' : 'default',
-                          willChange: 'transform',
-                          visibility: opacity <= 0.01 ? 'hidden' : 'visible',
-                        }}
+  zIndex: zIndex,
+  opacity: opacity,
+  filter: `brightness(${brightness})`,
+  transform: `translate3d(0, ${yTrans}px, ${zTrans}px) rotateX(${rotateX}deg)`,
+  borderColor: isActive ? '#f4b942' : 'rgba(255,255,255,0.05)',
+  willChange: 'transform',
+  visibility: opacity <= 0.01 ? 'hidden' : 'visible',
+  cursor: 'pointer', 
+  pointerEvents: 'auto'  
+}}
                         onClick={(e) => {
                           e.stopPropagation();
                           if (isActive) {

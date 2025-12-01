@@ -35,47 +35,46 @@ export default function Info() {
         <section className={cards['vinyl-card']}>
           <h2>WHO I AM</h2>
           <p>
-            Hey there! I&apos;m Evan, a developer passionate about building creative web experiences
-            that blend modern technology with timeless design principles.
+            Hey there! I&apos;m Evan, a junior developer passionate about building creative applications
+            that push my skills.
           </p>
           <p>
             I love working with modern frameworks and exploring new technologies, while
-            maintaining a deep appreciation for the aesthetics and craftsmanship of the past.
+            still improving my design knowledge and fundamentals.
           </p>
         </section>
 
         <section className={cards['vinyl-card']}>
           <h2>WHAT I DO</h2>
           <p>
-            Currently focused on full-stack development with React, Next.js, and TypeScript.
+            Currently focused on learning full-stack development with React, Next.js, TypeScript, database software, and FastAPI.
             I build responsive, accessible web applications that don&apos;t sacrifice personality
             for functionality.
           </p>
-          <div className={cards['genre-tags']}>
-            <span className={cards['genre-tag']}>Full-Stack Development</span>
-            <span className={cards['genre-tag']}>React / Next.js</span>
-            <span className={cards['genre-tag']}>TypeScript</span>
-            <span className={cards['genre-tag']}>UI/UX Design</span>
-          </div>
         </section>
 
         <section className={cards['vinyl-card']}>
           <h2>EXPERIENCE</h2>
           <div className={cards.timeline}>
             <div className={cards['timeline-item']}>
-              <h3>Senior Developer</h3>
-              <p className={cards['timeline-date']}>2022 - Present</p>
-              <p>Building scalable web applications and leading frontend architecture decisions.</p>
-            </div>
-            <div className={cards['timeline-item']}>
-              <h3>Full Stack Developer</h3>
-              <p className={cards['timeline-date']}>2020 - 2022</p>
-              <p>Developed and maintained multiple client projects using modern web technologies.</p>
+              <h3>Okanagan Marine Robotics Sub-Team Member</h3>
+              <p className={cards['timeline-date']}>2025 - Present</p>
+              <p>Writing software as part of the integration team in the UBCO Marine Robotics Club.</p>
             </div>
             <div className={cards['timeline-item']}>
               <h3>Junior Developer</h3>
-              <p className={cards['timeline-date']}>2018 - 2020</p>
-              <p>Started my journey learning React, Node.js, and modern development practices.</p>
+              <p className={cards['timeline-date']}>2024 - Present</p>
+              <p>Creating Python automations and developing a VB.NET inventory management application for Valhalla Pure Outfitters.</p>
+            </div>
+            <div className={cards['timeline-item']}>
+              <h3>University Student</h3>
+              <p className={cards['timeline-date']}>2023 - 2028</p>
+              <p>Started taking Computer Science (BSc) with a Minor in Mathematics at the University of British Columbia. </p>
+            </div>
+            <div className={cards['timeline-item']}>
+              <h3>Game Modder</h3>
+              <p className={cards['timeline-date']}>2021 - Present</p>
+              <p>Developing and maintaining multiple Minecraft mods using Java and (Neo)Forge/Fabric.</p>
             </div>
           </div>
         </section>
@@ -83,10 +82,9 @@ export default function Info() {
         <section className={cards['vinyl-card']}>
           <h2>WHEN I&apos;M NOT CODING</h2>
           <p>
-            You&apos;ll find me exploring music from various eras, diving into design history,
-            experimenting with analog photography, or discovering the intersection of art
-            and technology. I believe the best digital experiences are informed by the
-            physical world.
+            You&apos;ll usually find me discovering new music, reading fantasy novels,
+            drinking coffee, watching movies, or producing music. I think a day without 
+            experiencing or learning something new is a day wasted.
           </p>
         </section>
       </div>
