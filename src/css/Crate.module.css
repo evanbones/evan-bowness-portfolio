@@ -4,34 +4,35 @@
   left: 0;
   width: 100%;
   padding: 0 2rem;
-  display: flex; 
-  justify-content: space-between; 
+  display: flex;
+  justify-content: space-between;
   align-items: flex-end;
   z-index: 5000;
-  pointer-events: auto; 
+  pointer-events: auto;
 }
 
 .crate-display {
   position: absolute;
-  top: 0;
-  left: 0;
-  height: 100vh; 
+  height: 100vh;
   width: 100vw;
-  perspective: 800px;
+  perspective: 1100px;
   perspective-origin: 50% 30%;
   overflow: hidden;
   display: flex;
   justify-content: center;
+  align-items: center;
   z-index: 10;
 }
 
 .crate-scene {
-  position: relative; 
-  width: 100%; 
+  position: relative;
+  width: 100%;
   height: 100%;
-  display: flex; 
-  justify-content: center; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
   transform-style: preserve-3d;
+  transform: translateY(120px) rotateX(-10deg);
 }
 
 .controls {
@@ -46,15 +47,16 @@
 
 .control-group label {
   font-size: 0.8rem;
-  color: var(--burnt-orange);
+  color: #d4734f;
   font-weight: bold;
   margin-bottom: 0.2rem;
+  font-family: 'Courier New', monospace;
 }
 
 .control-group select {
-  background: transparent;
-  border: 2px solid var(--mustard-yellow);
-  color: var(--cream);
+  background: rgba(42, 31, 26, 0.9);
+  border: 2px solid #f4b942;
+  color: #f5f0e8;
   padding: 0.5rem;
   font-family: 'Courier New', monospace;
   font-weight: bold;
@@ -62,136 +64,134 @@
 }
 
 .album-stack {
-  position: absolute; 
-  width: 320px; 
-  height: 320px;
-  bottom: 120px; 
+  position: absolute;
+  width: 400px;
+  height: 350px;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
-  transform-style: preserve-3d; 
-  z-index: 10;
+  transform: translate(-50%, -50%);
+  transform-style: preserve-3d;
   pointer-events: none;
 }
 
 .album-card-3d {
-  position: absolute; 
-  top: 0; 
-  left: 0; 
-  width: 100%; 
-  height: 100%;
-  background: #111;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.8);
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: #151515;
   border-radius: 2px;
-  transition: transform 0.1s linear, filter 0.2s;
-  backface-visibility: hidden; 
+  transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  backface-visibility: hidden;
   transform-origin: center bottom;
-  pointer-events: auto; 
+  pointer-events: auto;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.8);
 }
 
-.album-card-3d img { 
-  width: 100%; 
-  height: 100%; 
-  object-fit: cover; 
-  display: block; 
-  border-radius: 2px; 
+.album-card-3d img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.vinyl_sleeve {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
 }
 
 .crate-structure {
   position: absolute;
-  width: 440px; 
-  height: 300px;
-  bottom: 0; 
+  width: 550px;
+  height: 240px;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%) translateZ(0); 
+  transform: translate(-50%, -50%);
   transform-style: preserve-3d;
   pointer-events: none;
-  z-index: 20;
+  z-index: 50;
 }
 
 .crate-side {
   position: absolute;
-  background: #281a16;
-  border: 2px solid #1a0f0c;
-  display: flex; 
-  justify-content: center; 
+  background: #3e2d26;
+  border: 1px solid #1a0f0c;
+  display: flex;
+  justify-content: center;
   align-items: center;
-  pointer-events: none;
+  width: 550px; 
+  height: 200px;
+  backface-visibility: hidden; 
 }
 
 .crate-side.front {
-  width: 440px; 
-  height: 300px;
-  transform: translateZ(400px); 
-  background: #3e2723; 
-  z-index: 50; 
-  overflow: hidden;
-  box-shadow: 0 -10px 40px rgba(0,0,0,0.5);
-  border-top: 15px solid #281a16;
-}
-
-.crate-side.back {
-  width: 440px; 
-  height: 350px; 
-  transform: translateZ(-400px) rotateY(180deg);
-  background: #1a0f0c;
+  transform: rotateY(0deg) translateZ(300px);
+  background: #3e2d26;
+  background-image: linear-gradient(to bottom, #4a362e, #2a1f1a);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  z-index: 2000;
 }
 
 .crate-side.left {
-  width: 800px; 
-  height: 350px;
-  transform: rotateY(-90deg) translateZ(220px); 
-  background: #2d1e1a;
-  background-image: linear-gradient(to right, rgba(0,0,0,0.9), transparent);
+  width: 1500px;
+  left: 50%;
+  margin-left: -750px; 
+
+  transform: rotateY(90deg) translateZ(-275px) translateX(450px);
+  
+  background: linear-gradient(to right, #2a1f1a, #1a1512);
 }
 
 .crate-side.right {
-  width: 800px; 
-  height: 350px;
-  transform: rotateY(90deg) translateZ(220px);
-  background: #2d1e1a;
-  background-image: linear-gradient(to left, rgba(0,0,0,0.9), transparent);
+  width: 1500px;
+  left: 50%;
+  margin-left: -750px;
+
+  transform: rotateY(-90deg) translateZ(-275px) translateX(-450px);
+  
+  background: linear-gradient(to left, #2a1f1a, #1a1512);
 }
 
-.crate-side.bottom {
-  width: 440px; 
-  height: 800px; 
-  transform: rotateX(-90deg) translateZ(150px); 
-  background: #000; 
-  box-shadow: inset 0 0 100px #000;
+.crate-sticker {
+  position: absolute;
+  padding: 0.5rem 1.2rem;
+  font-weight: 900;
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  text-transform: uppercase;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+  z-index: 2001;
+  border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-.crate-texture {
-  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-  opacity: 0.4; mix-blend-mode: multiply;
-  background: repeating-linear-gradient(90deg, transparent 0, transparent 2px, rgba(0,0,0,0.3) 5px, transparent 10px);
+.crate-sticker.s1 {
+  background: #ffce00;
+  color: #1a1a1a;
+  top: 25px;
+  left: 30px;
+  transform: rotate(-4deg);
 }
 
-.crate-sticker { 
-  position: absolute; 
-  padding: 0.5rem 1rem; 
-  font-weight: bold; 
-  font-family: 'Courier New', monospace; 
-  font-size: 0.9rem; 
-  text-transform: uppercase; 
-  box-shadow: 2px 2px 5px rgba(0,0,0,0.6); 
-  z-index: 501; 
-}
-.crate-sticker.s1 { background: #D4FF00; color: #000; top: 40px; left: 40px; transform: rotate(-6deg); border: 1px dashed #000; }
-.crate-sticker.s2 { background: #ff0055; color: #fff; bottom: 60px; right: 50px; transform: rotate(4deg); }
-
-.barcode { 
-  position: absolute; 
-  bottom: 15px; 
-  left: 30px; 
-  background: #fff; 
-  color: #000; 
-  padding: 4px 10px; 
-  font-family: monospace; 
-  font-size: 12px; 
-  transform: rotate(1deg); 
-  opacity: 0.9; 
+.crate-sticker.s2 {
+  background: #f04e30;
+  color: #f1f1f1;
+  bottom: 80px;
+  right: 35px;
+  transform: rotate(3deg);
 }
 
-@media (max-width: 768px) {
-  .crate-display { height: 60vh; perspective: 800px; }
+.barcode {
+  position: absolute;
+  bottom: 40px;
+  left: 35px;
+  background: #fff;
+  color: #000;
+  padding: 4px 8px;
+  font-family: monospace;
+  font-size: 10px;
+  transform: rotate(-1deg);
+  opacity: 0.9;
+  text-align: center;
 }

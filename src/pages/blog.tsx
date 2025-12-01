@@ -1,15 +1,13 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useEffect, useMemo, useRef, useState } from 'react';
-// 1. Import your CSS Modules
 import crate from '/src/css/Crate.module.css';
 import layout from '/src/css/Layout.module.css';
 import player from '/src/css/Player.module.css';
 
-// --- Mock Data ---
-const MOCK_REVIEWS = [
+const BASE_REVIEWS = [
   { id: '1', artist: 'Slowdive', album: 'Souvlaki', coverUrl: 'https://upload.wikimedia.org/wikipedia/en/2/22/Slowdive_-_Souvlaki.jpg', score: 9.5, genre: 'Shoegaze', reviewText: "A defining moment in the genre.", date: '2024-11-01' },
-  { id: '2', artist: 'Fat White Family', album: 'Serfs Up!', coverUrl: 'https://upload.wikimedia.org/wikipedia/en/2/23/Fat_White_Family_-_Serfs_Up%21.png', score: 8.0, genre: 'Post-Punk', reviewText: "Gritty, groovy, and unapologetically weird.", date: '2024-10-15' },
+  { id: '2', artist: 'The Beach Boys', album: 'Pet Sounds', coverUrl: 'https://upload.wikimedia.org/wikipedia/en/b/bb/PetSoundsCover.jpg', score: 8.0, genre: 'Post-Punk', reviewText: "Gritty, groovy, and unapologetically weird.", date: '2024-10-15' },
   { id: '3', artist: 'Tame Impala', album: 'Currents', coverUrl: 'https://upload.wikimedia.org/wikipedia/en/9/9b/Tame_Impala_-_Currents.png', score: 9.0, genre: 'Psychedelic', reviewText: "Parker abandons the guitars for synths.", date: '2024-09-20' },
   { id: '4', artist: 'MF DOOM', album: 'Mm.. Food', coverUrl: 'https://upload.wikimedia.org/wikipedia/en/8/8a/Mmfood.jpg', score: 10, genre: 'Hip Hop', reviewText: "Rhymes as dense as a fruit cake.", date: '2024-08-05' },
   { id: '5', artist: 'Radiohead', album: 'In Rainbows', coverUrl: 'https://upload.wikimedia.org/wikipedia/en/2/2e/In_Rainbows_Official_Cover.jpg', score: 10, genre: 'Alt Rock', reviewText: "Warm, intimate, and intricate.", date: '2024-07-22' },
@@ -17,13 +15,24 @@ const MOCK_REVIEWS = [
   { id: '7', artist: 'Talking Heads', album: 'Remain in Light', coverUrl: 'https://upload.wikimedia.org/wikipedia/en/2/26/Talking_Heads_-_Remain_in_Light.jpg', score: 10, genre: 'New Wave', reviewText: "Brian Eno production.", date: '1980-10-08' },
   { id: '8', artist: 'Portishead', album: 'Dummy', coverUrl: 'https://upload.wikimedia.org/wikipedia/en/6/6f/Portishead_-_Dummy.png', score: 9.2, genre: 'Trip Hop', reviewText: "Haunting, cinematic.", date: '1994-08-22' },
   { id: '9', artist: 'Massive Attack', album: 'Mezzanine', coverUrl: 'https://upload.wikimedia.org/wikipedia/en/e/e9/Massive_Attack_-_Mezzanine.png', score: 9.8, genre: 'Trip Hop', reviewText: "Dark, brooding, and bass-heavy.", date: '1998-04-20' },
-  { id: '10', artist: 'Aphex Twin', album: 'Selected Ambient Works 85-92', coverUrl: 'https://upload.wikimedia.org/wikipedia/en/8/82/Selected_Ambient_Works_85-92.png', score: 9.5, genre: 'Electronic', reviewText: "A milestone in ambient techno.", date: '1992-11-09' },
+  { id: '10', artist: 'Aphex Twin', album: 'SAW 85-92', coverUrl: 'https://upload.wikimedia.org/wikipedia/en/8/82/Selected_Ambient_Works_85-92.png', score: 9.5, genre: 'Electronic', reviewText: "A milestone in ambient techno.", date: '1992-11-09' },
   { id: '11', artist: 'My Bloody Valentine', album: 'Loveless', coverUrl: 'https://upload.wikimedia.org/wikipedia/en/4/4b/My_Bloody_Valentine_-_Loveless.png', score: 10, genre: 'Shoegaze', reviewText: "Pink noise perfection.", date: '1991-11-04' },
   { id: '12', artist: 'Bjork', album: 'Post', coverUrl: 'https://upload.wikimedia.org/wikipedia/en/3/3a/Bjork_Post.png', score: 9.0, genre: 'Electronic', reviewText: "Eclectic and electric.", date: '1995-06-13' },
 ];
 
+const MOCK_REVIEWS = [
+  ...BASE_REVIEWS,
+  ...BASE_REVIEWS.map(r => ({...r, id: r.id + '_2', album: r.album + ' (II)'})),
+  ...BASE_REVIEWS.map(r => ({...r, id: r.id + '_3', album: r.album + ' (III)'})),
+  ...BASE_REVIEWS.map(r => ({...r, id: r.id + '_4', album: r.album + ' (IV)'})),
+  ...BASE_REVIEWS.map(r => ({...r, id: r.id + '_5', album: r.album + ' (V)'})),
+];
+
+const ACTIVE_OFFSET = 2; 
+const MAX_RENDER_DIST = 24; 
+
 export default function Blog() {
-  const [scrollPos, setScrollPos] = useState(0); 
+  const [scrollPos, setScrollPos] = useState(-ACTIVE_OFFSET); 
   const [showDetail, setShowDetail] = useState(false);
   const [filterGenre, setFilterGenre] = useState('All');
   const [sortBy, setSortBy] = useState('date');
@@ -41,31 +50,82 @@ export default function Blog() {
   }, [filterGenre, sortBy]);
 
   const total = processedReviews.length;
-  const activeIndex = Math.round(scrollPos) % total;
-  const currentAlbum = processedReviews[activeIndex];
+  
+  let activeIndex = Math.round(scrollPos + ACTIVE_OFFSET) % total;
+  if (activeIndex < 0) activeIndex += total;
+  const clickableAlbum = processedReviews[activeIndex];
 
   useEffect(() => {
     const handleScroll = (e: WheelEvent) => {
       if (showDetail) return;
       e.preventDefault(); 
       setScrollPos((prev) => {
-        let next = prev + (e.deltaY * 0.002); 
-        if (next < 0) next += total;
-        return next;
+        const delta = e.deltaY * 0.0008; 
+        return prev + delta; 
       });
     };
 
     window.addEventListener('wheel', handleScroll, { passive: false });
-    return () => {
-      window.removeEventListener('wheel', handleScroll);
-    };
+    return () => window.removeEventListener('wheel', handleScroll);
   }, [showDetail, total]);
 
   return (
     <>
       <Head><title>Crate Digging - Evan Bowness</title></Head>
 
-      {/* Use Layout Module */}
+      <style jsx global>{`
+        body {
+          margin: 0;
+          padding: 0;
+          background: #2a1f1a;
+          font-family: 'Courier New', monospace;
+          color: #f5f0e8;
+          overflow: hidden;
+        }
+
+        .crate-container {
+          position: relative;
+          width: 100vw;
+          height: 100vh;
+          overflow: hidden;
+        }
+
+        .floating-text {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%) rotate(-5deg);
+          font-family: 'Impact', 'Arial Black', sans-serif;
+          font-size: 15vw;
+          font-weight: 900;
+          text-transform: uppercase;
+          color: transparent;
+          -webkit-text-stroke: 2px rgba(244, 185, 66, 0.05);
+          letter-spacing: -0.02em;
+          white-space: nowrap;
+          pointer-events: none;
+          z-index: 1;
+          transition: all 0.3s ease;
+        }
+
+        .back-btn {
+          color: var(--cream);
+          background: transparent;
+          border: 2px solid var(--burnt-orange);
+          padding: 0.8rem 1.5rem;
+          font-size: 1rem;
+          font-family: 'Courier New', monospace;
+          font-weight: bold;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+          background: var(--burnt-orange);
+          transform: translateY(-2px);
+        }
+      `}</style>
+
       <nav className={layout['nav-bar']}>
         <div className={layout['nav-left']}>
           <Link href="/" className={layout['home-link']}>HOME</Link>
@@ -82,27 +142,30 @@ export default function Blog() {
         </div>
       </nav>
 
-      {/* Note: 'crate-container' was not in modules, but internal content is modularized */}
       <div className="crate-container">
-        
         {!showDetail && (
           <>
-            <div className="floating-text-container">
-               <h1 className="floating-text left">{currentAlbum?.artist}</h1>
-               <h1 className="floating-text right">{currentAlbum?.album}</h1>
+            <div className="floating-text">
+               {clickableAlbum?.artist}
             </div>
 
-            {/* Use Crate Module */}
             <header className={crate['crate-header']}>
               <div className={crate.controls}>
                 <div className={crate['control-group']}>
                   <label>GENRE SELECTOR</label>
-                  <select value={filterGenre} onChange={(e) => {setFilterGenre(e.target.value); setScrollPos(0);}}>
+                  <select value={filterGenre} onChange={(e) => {
+                      setFilterGenre(e.target.value); 
+                      setScrollPos(-ACTIVE_OFFSET); 
+                  }}>
                     <option value="All">ALL RECORDS</option>
                     <option value="Shoegaze">SHOEGAZE</option>
                     <option value="Post-Punk">POST-PUNK</option>
                     <option value="Electronic">ELECTRONIC</option>
                     <option value="Hip Hop">HIP HOP</option>
+                    <option value="Trip Hop">TRIP HOP</option>
+                    <option value="Psychedelic">PSYCHEDELIC</option>
+                    <option value="Alt Rock">ALT ROCK</option>
+                    <option value="New Wave">NEW WAVE</option>
                   </select>
                 </div>
               </div>
@@ -110,92 +173,118 @@ export default function Blog() {
           </>
         )}
 
-        {/* Use Crate Module */}
         <div className={crate['crate-display']} ref={crateRef}>
-          
           {!showDetail && (
             <div className={crate['crate-scene']}>
+               
                <div className={crate['crate-structure']}>
                   <div className={`${crate['crate-side']} ${crate.front}`}>
-                     <div className={crate['crate-texture']}></div>
                      <div className={`${crate['crate-sticker']} ${crate.s1}`}>FRESH FINDS</div>
                      <div className={`${crate['crate-sticker']} ${crate.s2}`}>STAFF PICK</div>
-                     <div className={crate.barcode}>12039-123</div>
+                     <div className={crate.barcode}>
+                        <span>CRATE 9</span>
+                        <span style={{letterSpacing: '3px', display:'block', marginTop:'2px'}}>||| || ||</span>
+                     </div>
                   </div>
-                  <div className={`${crate['crate-side']} ${crate.back}`}></div>
                   <div className={`${crate['crate-side']} ${crate.left}`}></div>
                   <div className={`${crate['crate-side']} ${crate.right}`}></div>
-                  <div className={`${crate['crate-side']} ${crate.bottom}`}></div>
                </div>
 
                <div className={crate['album-stack']}>
-                 {processedReviews.map((review, i) => {
-                   let dist = i - (scrollPos % total);
-                   if (dist > total / 2) dist -= total;
-                   if (dist < -total / 2) dist += total;
+                  {processedReviews.map((review, i) => {
+                    let dist = i - scrollPos;
 
-                   if (dist < -3 || dist > 15) return null;
+                    while (dist > total / 2) dist -= total;
+                    while (dist < -total / 2) dist += total;
 
-                   const zIndex = 500 - Math.round(dist * 10);
-                   let yTrans = 0; 
-                   let rotateX = -5;
-                   let zTrans = 0;
+                    if (dist < -2 || dist > MAX_RENDER_DIST) return null;
 
-                   if (dist > 1.5) {
-                      zTrans = (dist - 1.5) * -60; 
-                      yTrans = 120; 
-                   } else {
-                      zTrans = (dist - 1.5) * -60;
-                      yTrans = 120;
-                   }
+                    let yTrans = 0; 
+                    let zTrans = 0;
+                    let rotateX = 0;
+                    let zIndex = 0;
+                    let opacity = 1;
+                    let brightness = 1;
+                    
+                  if (dist >= 0) {
+                    const zStart = 300; 
+                    const zSpacing = 120; 
+                    zTrans = zStart - (dist * zSpacing);
+                    
+                    yTrans = -60 - (dist * 2); 
+                    zIndex = 1000 - Math.floor(dist * 10);
+                    
+                    if (dist > 12) {
+                       opacity = Math.max(0, 1 - ((dist - 12) / 8));
+                       brightness = Math.max(0.4, 1 - ((dist - 12) / 8));
+                    } else {
+                       opacity = 1;
+                       brightness = 1;
+                    }
+                  }
+                  
+                  else {
+                    const absDist = Math.abs(dist);
+                    zTrans = 300; 
+                    yTrans = -60 + (absDist * 300); 
 
-                   const liftCurve = Math.exp(-Math.pow(dist - 1.5, 2) * 3);
-                   yTrans -= (liftCurve * 160);
+                    zIndex = 900; 
+                  }
 
-                   if (dist < 1.0) {
-                      const fallProgress = (1.0 - dist); 
-                      yTrans += (fallProgress * 300); 
-                      rotateX -= (fallProgress * 80); 
-                      zTrans += (fallProgress * 150); 
-                   }
+                  const distFromActive = dist - ACTIVE_OFFSET;
+                  const isActive = Math.abs(distFromActive) < 0.5 && dist >= 0;
 
-                   const isActive = Math.abs(dist - 1.5) < 0.3;
-                   const brightness = Math.max(0.2, 1 - ((dist - 1.5) * 0.15));
-
-                   return (
-                     <div 
-                       key={review.id}
-                       className={crate['album-card-3d']}
-                       style={{
-                         zIndex: zIndex,
-                         transform: `translateY(${yTrans}px) translateZ(${zTrans}px) rotateX(${rotateX}deg)`,
-                         filter: isActive ? 'brightness(1.2)' : `brightness(${brightness})`,
-                         borderColor: isActive ? '#fff' : 'rgba(255,255,255,0.1)',
-                         cursor: isActive ? 'pointer' : 'default'
-                       }}
-                       onClick={() => {
-                          if (isActive) setShowDetail(true);
-                       }}
-                     >
-                       <img src={review.coverUrl} alt={review.album} loading="lazy" />
-                     </div>
-                   );
-                 })}
-               </div>
+                  if (isActive) {
+                    yTrans -= 80; 
+                    zTrans += 20;  
+                    rotateX = 0; 
+                    brightness = 1.2;
+                    zIndex = 1500;
+                  }
+                  
+                    return (
+                      <div 
+                        key={review.id}
+                        className={crate['album-card-3d']}
+                        style={{
+                          zIndex: zIndex,
+                          opacity: opacity,
+                          filter: `brightness(${brightness})`,
+                          transform: `translate3d(0, ${yTrans}px, ${zTrans}px) rotateX(${rotateX}deg)`,
+                          borderColor: isActive ? '#f4b942' : 'rgba(255,255,255,0.05)',
+                          cursor: isActive ? 'pointer' : 'default',
+                          willChange: 'transform',
+                          visibility: opacity <= 0.01 ? 'hidden' : 'visible',
+                        }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          if (isActive) {
+                            setShowDetail(true);
+                          } else {
+                             setScrollPos(i - ACTIVE_OFFSET); 
+                          }
+                        }}
+                      >
+                        <div className={crate.vinyl_sleeve}>
+                           <img src={review.coverUrl} alt={review.album} loading="lazy" />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
             </div>
           )}
 
-          {showDetail && currentAlbum && (
+          {showDetail && clickableAlbum && (
             <div className={player['player-overlay']}>
               <div className={player['player-view']}>
-                <button className="back-btn" onClick={() => setShowDetail(false)} style={{
-                  color: 'var(--cream)', background: 'transparent', border: 'none', 
-                  fontSize: '1.2rem', marginBottom: '1rem', cursor: 'pointer', fontFamily: 'monospace'
-                }}>← BACK TO CRATE</button>
+                <button className="back-btn" onClick={() => setShowDetail(false)}>
+                  ← BACK TO CRATE
+                </button>
                 <div className={player['player-content']}>
                   <div className={player['player-visual-container']}>
                       <div className={player['cover-wrapper']}>
-                         <img src={currentAlbum.coverUrl} alt="Cover" className={player['player-cover']} />
+                         <img src={clickableAlbum.coverUrl} alt="Cover" className={player['player-cover']} />
                       </div>
                       <div className={`${player['vinyl-record']} ${player.spinning}`}>
                           <div className={player['vinyl-grooves']}></div>
@@ -204,12 +293,19 @@ export default function Blog() {
                   </div>
                   <div className="player-info">
                     <div className={player['info-header']}>
-                      <span className={player['genre-tag']}>{currentAlbum.genre}</span>
-                      <h2>{currentAlbum.album}</h2>
-                      <h3>{currentAlbum.artist}</h3>
+                      <span className={player['genre-tag']}>{clickableAlbum.genre}</span>
+                      <h2>{clickableAlbum.album}</h2>
+                      <h3>{clickableAlbum.artist}</h3>
                     </div>
-                    <div className={player['review-body']}><p>&quot;{currentAlbum.reviewText}&quot;</p></div>
-                    <div className="score-block"><div className={player['score-number']}>{currentAlbum.score}<span>/10</span></div></div>
+                    <div className={player['review-body']}>
+                      <p>&quot;{clickableAlbum.reviewText}&quot;</p>
+                    </div>
+                    <div className="score-block">
+                      <div className={player['score-number']}>
+                        {clickableAlbum.score}
+                        <span>/10</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

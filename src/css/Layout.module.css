@@ -68,9 +68,7 @@
   font-family: 'Fraunces', serif;
   font-size: 4rem;
   color: var(--cream);
-  text-shadow: 
-    3px 3px 0 var(--burnt-orange),
-    6px 6px 0 var(--rust-red);
+  text-shadow: 3px 3px 0 var(--burnt-orange), 6px 6px 0 var(--rust-red);
   letter-spacing: 2px;
 }
 
@@ -117,7 +115,15 @@
 }
 
 @media (max-width: 768px) {
-  .nav-bar { padding: 1rem; }
-  .nav-right { gap: 1rem; }
-  .container { padding: 1rem; }
+  .nav-bar {
+    padding: 1rem;
+  }
+
+  .nav-right {
+    gap: 1rem;
+  }
+
+  .container {
+    padding: 1rem;
+  }
 }
