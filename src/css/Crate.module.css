@@ -140,7 +140,6 @@
   margin-left: -750px; 
 
   transform: rotateY(90deg) translateZ(-275px) translateX(450px);
-  
   background: linear-gradient(to right, #2a1f1a, #1a1512);
 }
 
@@ -150,7 +149,6 @@
   margin-left: -750px;
 
   transform: rotateY(-90deg) translateZ(-275px) translateX(-450px);
-  
   background: linear-gradient(to left, #2a1f1a, #1a1512);
 }
 

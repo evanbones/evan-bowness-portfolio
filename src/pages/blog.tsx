@@ -5,7 +5,7 @@ import crate from '/src/css/Crate.module.css';
 import layout from '/src/css/Layout.module.css';
 import player from '/src/css/Player.module.css';
 
-const BASE_REVIEWS = [
+const MOCK_REVIEWS = [
   { id: '1', artist: 'Slowdive', album: 'Souvlaki', coverUrl: 'https://upload.wikimedia.org/wikipedia/en/2/22/Slowdive_-_Souvlaki.jpg', score: 9.5, genre: 'Shoegaze', reviewText: "A defining moment in the genre.", date: '2024-11-01' },
   { id: '2', artist: 'The Beach Boys', album: 'Pet Sounds', coverUrl: 'https://upload.wikimedia.org/wikipedia/en/b/bb/PetSoundsCover.jpg', score: 8.0, genre: 'Post-Punk', reviewText: "Gritty, groovy, and unapologetically weird.", date: '2024-10-15' },
   { id: '3', artist: 'Tame Impala', album: 'Currents', coverUrl: 'https://upload.wikimedia.org/wikipedia/en/9/9b/Tame_Impala_-_Currents.png', score: 9.0, genre: 'Psychedelic', reviewText: "Parker abandons the guitars for synths.", date: '2024-09-20' },
@@ -20,14 +20,6 @@ const BASE_REVIEWS = [
   { id: '12', artist: 'Bjork', album: 'Post', coverUrl: 'https://upload.wikimedia.org/wikipedia/en/3/3a/Bjork_Post.png', score: 9.0, genre: 'Electronic', reviewText: "Eclectic and electric.", date: '1995-06-13' },
 ];
 
-const MOCK_REVIEWS = [
-  ...BASE_REVIEWS,
-  ...BASE_REVIEWS.map(r => ({...r, id: r.id + '_2', album: r.album + ' (II)'})),
-  ...BASE_REVIEWS.map(r => ({...r, id: r.id + '_3', album: r.album + ' (III)'})),
-  ...BASE_REVIEWS.map(r => ({...r, id: r.id + '_4', album: r.album + ' (IV)'})),
-  ...BASE_REVIEWS.map(r => ({...r, id: r.id + '_5', album: r.album + ' (V)'})),
-];
-
 const ACTIVE_OFFSET = 2; 
 const MAX_RENDER_DIST = 24; 
 
@@ -40,12 +32,28 @@ export default function Blog() {
 
   const processedReviews = useMemo(() => {
     let data = [...MOCK_REVIEWS];
-    if (filterGenre !== 'All') data = data.filter(r => r.genre === filterGenre);
+
+    if (filterGenre !== 'All') {
+      data = data.filter(r => r.genre === filterGenre);
+    }
+
     data.sort((a, b) => {
       if (sortBy === 'score') return b.score - a.score;
       if (sortBy === 'artist') return a.artist.localeCompare(b.artist);
       return new Date(b.date).getTime() - new Date(a.date).getTime();
     });
+
+    const MIN_LOOP_SIZE = 45;
+    
+    if (data.length > 0 && data.length < MIN_LOOP_SIZE) {
+      const copiesNeeded = Math.ceil(MIN_LOOP_SIZE / data.length);
+      let paddedData = [];
+      for (let i = 0; i < copiesNeeded; i++) {
+        paddedData = [...paddedData, ...data]; 
+      }
+      data = paddedData;
+    }
+
     return data;
   }, [filterGenre, sortBy]);
 
@@ -75,11 +83,6 @@ export default function Blog() {
 
       <style jsx global>{`
         body {
-          margin: 0;
-          padding: 0;
-          background: #2a1f1a;
-          font-family: 'Courier New', monospace;
-          color: #f5f0e8;
           overflow: hidden;
         }
 
@@ -122,7 +125,6 @@ export default function Blog() {
 
         .back-btn:hover {
           background: var(--burnt-orange);
-          transform: translateY(-2px);
         }
       `}</style>
 
@@ -244,7 +246,7 @@ export default function Blog() {
                   
                     return (
                       <div 
-                        key={review.id}
+                        key={`${review.id}-${i}`}
                         className={crate['album-card-3d']}
                         style={{
                           zIndex: zIndex,
