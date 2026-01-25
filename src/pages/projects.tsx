@@ -157,8 +157,8 @@ export default function Projects() {
                     <p className={cards['project-year']}>2021</p>
                     <p>
                         I develop and maintain numerous Minecraft mods using Java and (Neo)Forge/Fabric. My most popular
-                        mod, Wolf Armor Compat, has over 3.8 million downloads on CurseForge, and I've contributed to
-                        other mods with download counts in the millions.
+                        mod, Wolf Armor Compat, has over 3.8 million downloads on CurseForge, and I&apos;ve contributed
+                        to other mods with download counts in the millions.
                     </p>
                     <div className={cards['genre-tags']}>
                         <span className={cards['genre-tag']}>Java</span>
@@ -197,7 +197,7 @@ export default function Projects() {
                             GitHub
                         </a>
                     </div>
-                    <p className={layout.copyright}>© 2025 Evan Bowness. All rights reserved.</p>
+                    <p className={layout.copyright}>© 2025 Evan Bowness.</p>
                 </div>
             </footer>
         </>

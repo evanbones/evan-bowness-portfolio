@@ -28,7 +28,7 @@ export default function Home() {
     return (
         <>
             <Head>
-                <title>Evan Bowness - Developer</title>
+                <title>Evan Bowness - Junior Developer</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </Head>
 
@@ -56,21 +56,17 @@ export default function Home() {
                 <header className={home.hero}>
                     <h1>EVAN BOWNESS</h1>
                     <p className={home.subtitle}>Developer & Creator</p>
-                    <div className={cards['genre-tags']}>
-                        <span className={cards['genre-tag']}>Full-Stack</span>
-                        <span className={cards['genre-tag']}>React</span>
-                        <span className={cards['genre-tag']}>Next.js</span>
-                        <span className={cards['genre-tag']}>TypeScript</span>
-                    </div>
                 </header>
 
                 {/* Welcome Section */}
                 <section className={cards['vinyl-card']}>
                     <h2>WELCOME</h2>
                     <p>
-                        Developer. Creator. Problem solver. Building modern web experiences with a touch of nostalgia.
+                        I&apos;m a full stack developer based in Canada with a focus on system design. My background
+                        includes work in the Minecraft modding community, where I learned Java and how to use Git.
+                        I&apos;ve also written software using VB.net, Python, FastAPI, and Next.js.
                     </p>
-                    <p>Check out my work, read my thoughts, or drop me a line below.</p>
+                    <p>Check out my work, read my thoughts, or get in touch below.</p>
                 </section>
 
                 {/* Contact Section */}
@@ -132,7 +128,7 @@ export default function Home() {
                             GitHub
                         </a>
                     </div>
-                    <p className={layout.copyright}>© 2025 Evan Bowness. All rights reserved.</p>
+                    <p className={layout.copyright}>© 2025 Evan Bowness.</p>
                 </div>
             </footer>
         </>
