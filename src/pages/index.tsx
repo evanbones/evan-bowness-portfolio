@@ -27,7 +27,7 @@ export default function Home() {
         })
             .then(() => {
                 setFormData({ name: '', email: '', message: '' });
-                setStatus('Message received! Spinning it up now...');
+                setStatus('Message received! Thanks!');
 
                 setTimeout(() => setStatus(''), 5000);
             })
