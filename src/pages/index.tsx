@@ -12,10 +12,26 @@ export default function Home() {
         message: ''
     });
 
+    const [status, setStatus] = useState('');
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log('Form submitted:', formData);
-        alert('Message sent!');
+
+        const myForm = e.target as HTMLFormElement;
+        const data = new FormData(myForm);
+
+        fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(data as any).toString()
+        })
+            .then(() => {
+                setFormData({ name: '', email: '', message: '' });
+                setStatus('Message received! Spinning it up now...');
+
+                setTimeout(() => setStatus(''), 5000);
+            })
+            .catch((error) => setStatus('Error sending message. Please try again.'));
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -32,7 +48,6 @@ export default function Home() {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </Head>
 
-            {/* Navigation */}
             <nav className={layout['nav-bar']}>
                 <div className={layout['nav-left']}>
                     <Link href="/" className={layout['home-link']}>
@@ -52,13 +67,11 @@ export default function Home() {
             </nav>
 
             <div className={layout.container}>
-                {/* Hero Section */}
                 <header className={home.hero}>
                     <h1>EVAN BOWNESS</h1>
                     <p className={home.subtitle}>Developer & Creator</p>
                 </header>
 
-                {/* Welcome Section */}
                 <section className={cards['vinyl-card']}>
                     <h2>WELCOME</h2>
                     <p>
@@ -69,7 +82,6 @@ export default function Home() {
                     <p>Check out my work, read my thoughts, or get in touch below.</p>
                 </section>
 
-                {/* Contact Section */}
                 <section className={`${cards['vinyl-card']} ${home['contact-section']}`}>
                     <h2>GET IN TOUCH</h2>
                     <p>Have a project in mind? Let&apos;s work together!</p>
@@ -115,17 +127,20 @@ export default function Home() {
                                 required
                             />
                         </div>
+
                         <button type="submit" className={home['submit-btn']}>
                             SEND MESSAGE
                         </button>
+
+                        {status && <div className={home['success-message']}>{status}</div>}
                     </form>
+
                     <p className={home['contact-email']}>
                         Or email me directly at: <a href="mailto:bownessevan@gmail.com">bownessevan@gmail.com</a>
                     </p>
                 </section>
             </div>
 
-            {/* Footer */}
             <footer className={layout.footer}>
                 <div className={layout['footer-content']}>
                     <div className={layout['footer-links']}>

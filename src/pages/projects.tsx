@@ -11,7 +11,6 @@ export default function Projects() {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </Head>
 
-            {/* Navigation */}
             <nav className={layout['nav-bar']}>
                 <div className={layout['nav-left']}>
                     <Link href="/" className={layout['home-link']}>
@@ -186,7 +185,6 @@ export default function Projects() {
                 </section>
             </div>
 
-            {/* Footer */}
             <footer className={layout.footer}>
                 <div className={layout['footer-content']}>
                     <div className={layout['footer-links']}>
