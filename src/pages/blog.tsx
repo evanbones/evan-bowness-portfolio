@@ -1,9 +1,9 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import crate from '/src/css/Crate.module.css';
-import layout from '/src/css/Layout.module.css';
-import player from '/src/css/Player.module.css';
+import crate from '../css/Crate.module.css';
+import layout from '../css/Layout.module.css';
+import player from '../css/Player.module.css';
 
 const MOCK_REVIEWS = [
     {

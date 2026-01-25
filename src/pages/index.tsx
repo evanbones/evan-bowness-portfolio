@@ -1,9 +1,9 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useState } from 'react';
-import home from '/src/css/Home.module.css';
-import layout from '/src/css/Layout.module.css';
-import cards from '/src/css/VinylCard.module.css';
+import home from '../css/Home.module.css';
+import layout from '../css/Layout.module.css';
+import cards from '../css/VinylCard.module.css';
 
 export default function Home() {
     const [formData, setFormData] = useState({

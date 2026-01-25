@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import layout from '/src/css/Layout.module.css';
-import cards from '/src/css/VinylCard.module.css';
+import layout from '../css/Layout.module.css';
+import cards from '../css/VinylCard.module.css';
 
 export default function Projects() {
     return (
