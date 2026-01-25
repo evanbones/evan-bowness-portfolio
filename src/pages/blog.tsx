@@ -9,6 +9,10 @@ import player from '../css/Player.module.css';
 
 const ACTIVE_OFFSET = 2;
 const MAX_RENDER_DIST = 30;
+const SCROLL_SENSITIVITY = 0.0025;
+const EASING = 0.08;
+
+const lerp = (start, end, factor) => start + (end - start) * factor;
 
 function useAnimatedText(text) {
     const [display, setDisplay] = useState(text);
@@ -30,12 +34,15 @@ function useAnimatedText(text) {
 
 export default function Blog({ reviews = [] }) {
     const [scrollPos, setScrollPos] = useState(-ACTIVE_OFFSET);
+    const targetScrollPos = useRef(-ACTIVE_OFFSET);
+
+    const rafRef = useRef(null);
+
     const [showDetail, setShowDetail] = useState(false);
     const [filterGenre, setFilterGenre] = useState('All');
     const [sortBy, setSortBy] = useState('date');
 
-    const interactionZoneRef = useRef<HTMLDivElement>(null);
-    const scrollAccumulator = useRef(0);
+    const interactionZoneRef = useRef(null);
 
     const processedReviews = useMemo(() => {
         let data = [...reviews];
@@ -73,6 +80,28 @@ export default function Blog({ reviews = [] }) {
     const { display: animatedArtistText, isFadingOut } = useAnimatedText(activeArtist);
 
     useEffect(() => {
+        const animate = () => {
+            setScrollPos((currentPos) => {
+                const diff = targetScrollPos.current - currentPos;
+
+                if (Math.abs(diff) < 0.001) {
+                    return currentPos;
+                }
+
+                return lerp(currentPos, targetScrollPos.current, EASING);
+            });
+
+            rafRef.current = requestAnimationFrame(animate);
+        };
+
+        rafRef.current = requestAnimationFrame(animate);
+
+        return () => {
+            if (rafRef.current) cancelAnimationFrame(rafRef.current);
+        };
+    }, []);
+
+    useEffect(() => {
         const handleCrateScroll = (e) => {
             if (showDetail) return;
 
@@ -82,16 +111,7 @@ export default function Blog({ reviews = [] }) {
 
             e.preventDefault();
 
-            scrollAccumulator.current += e.deltaY;
-            const SNAP_THRESHOLD = 100;
-
-            if (scrollAccumulator.current > SNAP_THRESHOLD) {
-                setScrollPos((prev) => prev + 1);
-                scrollAccumulator.current = 0;
-            } else if (scrollAccumulator.current < -SNAP_THRESHOLD) {
-                setScrollPos((prev) => prev - 1);
-                scrollAccumulator.current = 0;
-            }
+            targetScrollPos.current += e.deltaY * SCROLL_SENSITIVITY;
         };
 
         const element = interactionZoneRef.current;
@@ -105,6 +125,15 @@ export default function Blog({ reviews = [] }) {
             }
         };
     }, [showDetail]);
+
+    const handleAlbumClick = (i, isActive, e) => {
+        e.stopPropagation();
+        if (isActive) {
+            setShowDetail(true);
+        } else {
+            targetScrollPos.current = i - ACTIVE_OFFSET;
+        }
+    };
 
     return (
         <>
@@ -193,6 +222,7 @@ export default function Blog({ reviews = [] }) {
                                         value={filterGenre}
                                         onChange={(e) => {
                                             setFilterGenre(e.target.value);
+                                            targetScrollPos.current = -ACTIVE_OFFSET;
                                             setScrollPos(-ACTIVE_OFFSET);
                                         }}
                                     >
@@ -258,7 +288,6 @@ export default function Blog({ reviews = [] }) {
                             >
                                 {processedReviews.map((review, i) => {
                                     let dist = i - scrollPos;
-
                                     while (dist > total / 2) dist -= total;
                                     while (dist < -total / 2) dist += total;
 
@@ -266,7 +295,6 @@ export default function Blog({ reviews = [] }) {
 
                                     let yTrans = 0;
                                     let zTrans = 0;
-                                    let rotateX = 0;
                                     let zIndex = 0;
                                     let opacity = 1;
                                     let brightness = 1;
@@ -289,16 +317,20 @@ export default function Blog({ reviews = [] }) {
                                         zIndex = 900;
                                     }
 
-                                    const distFromActive = dist - ACTIVE_OFFSET;
-                                    const isActive = Math.abs(distFromActive) < 0.5 && dist >= 0;
+                                    const distFromActive = Math.abs(dist - ACTIVE_OFFSET);
 
-                                    if (isActive) {
-                                        yTrans -= 80;
-                                        zTrans += 20;
-                                        rotateX = 0;
-                                        brightness = 1.2;
-                                        zIndex = 1500;
+                                    let activeFactor = 0;
+                                    if (distFromActive < 1) {
+                                        activeFactor = 1 - distFromActive;
+                                        activeFactor = activeFactor * activeFactor * (3 - 2 * activeFactor);
                                     }
+
+                                    yTrans -= 80 * activeFactor;
+                                    zTrans += 20 * activeFactor;
+                                    brightness += 0.2 * activeFactor;
+                                    zIndex += Math.round(activeFactor * 500);
+
+                                    const isClickable = distFromActive < 0.1;
 
                                     return (
                                         <div
@@ -308,23 +340,15 @@ export default function Blog({ reviews = [] }) {
                                                 zIndex: zIndex,
                                                 opacity: opacity,
                                                 filter: `brightness(${brightness})`,
-                                                transform: `translate3d(0, ${yTrans}px, ${zTrans}px) rotateX(${rotateX}deg)`,
-                                                borderColor: isActive ? '#f4b942' : 'rgba(255,255,255,0.05)',
+                                                transform: `translate3d(0, ${yTrans}px, ${zTrans}px)`,
+                                                borderColor: activeFactor > 0.8 ? '#f4b942' : 'rgba(255,255,255,0.05)',
                                                 willChange: 'transform',
                                                 visibility: opacity <= 0.01 ? 'hidden' : 'visible',
                                                 cursor: 'pointer',
                                                 pointerEvents: 'auto',
-                                                transition:
-                                                    'transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease'
+                                                transition: 'box-shadow 0.3s ease, border-color 0.3s ease'
                                             }}
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                if (isActive) {
-                                                    setShowDetail(true);
-                                                } else {
-                                                    setScrollPos(i - ACTIVE_OFFSET);
-                                                }
-                                            }}
+                                            onClick={(e) => handleAlbumClick(i, isClickable, e)}
                                         >
                                             <div className={crate.vinyl_sleeve}>
                                                 <img src={review.coverUrl} alt={review.album} loading="lazy" />
