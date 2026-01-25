@@ -1,0 +1,22 @@
+[
+    {
+        "id": "1",
+        "artist": "Slowdive",
+        "album": "Souvlaki",
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/en/a/a6/Souvlaki_%28album%29_cover.jpg",
+        "score": 10.0,
+        "genre": "Shoegaze",
+        "reviewText": "One of my all-time favourites.",
+        "date": "2026-01-24"
+    },
+    {
+        "id": "2",
+        "artist": "The Beach Boys",
+        "album": "Pet Sounds",
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/en/b/bb/PetSoundsCover.jpg",
+        "score": 10.0,
+        "genre": "Pop",
+        "reviewText": "A timeless masterpiece.",
+        "date": "2026-01-24"
+    }
+]

@@ -1,135 +1,14 @@
+import fs from 'fs/promises';
 import Head from 'next/head';
 import Link from 'next/link';
+import path from 'path';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import crate from '../css/Crate.module.css';
 import layout from '../css/Layout.module.css';
 import player from '../css/Player.module.css';
 
-const MOCK_REVIEWS = [
-    {
-        id: '1',
-        artist: 'Slowdive',
-        album: 'Souvlaki',
-        coverUrl: 'https://upload.wikimedia.org/wikipedia/en/2/22/Slowdive_-_Souvlaki.jpg',
-        score: 9.5,
-        genre: 'Shoegaze',
-        reviewText: 'A defining moment in the genre.',
-        date: '2024-11-01'
-    },
-    {
-        id: '2',
-        artist: 'The Beach Boys',
-        album: 'Pet Sounds',
-        coverUrl: 'https://upload.wikimedia.org/wikipedia/en/b/bb/PetSoundsCover.jpg',
-        score: 8.0,
-        genre: 'Post-Punk',
-        reviewText: 'Gritty, groovy, and unapologetically weird.',
-        date: '2024-10-15'
-    },
-    {
-        id: '3',
-        artist: 'Tame Impala',
-        album: 'Currents',
-        coverUrl: 'https://upload.wikimedia.org/wikipedia/en/9/9b/Tame_Impala_-_Currents.png',
-        score: 9.0,
-        genre: 'Psychedelic',
-        reviewText: 'Parker abandons the guitars for synths.',
-        date: '2024-09-20'
-    },
-    {
-        id: '4',
-        artist: 'MF DOOM',
-        album: 'Mm.. Food',
-        coverUrl: 'https://upload.wikimedia.org/wikipedia/en/8/8a/Mmfood.jpg',
-        score: 10,
-        genre: 'Hip Hop',
-        reviewText: 'Rhymes as dense as a fruit cake.',
-        date: '2024-08-05'
-    },
-    {
-        id: '5',
-        artist: 'Radiohead',
-        album: 'In Rainbows',
-        coverUrl: 'https://upload.wikimedia.org/wikipedia/en/2/2e/In_Rainbows_Official_Cover.jpg',
-        score: 10,
-        genre: 'Alt Rock',
-        reviewText: 'Warm, intimate, and intricate.',
-        date: '2024-07-22'
-    },
-    {
-        id: '6',
-        artist: 'Daft Punk',
-        album: 'Discovery',
-        coverUrl: 'https://upload.wikimedia.org/wikipedia/en/a/ae/Daft_Punk_-_Discovery.png',
-        score: 10,
-        genre: 'Electronic',
-        reviewText: 'Pure french touch perfection.',
-        date: '2001-03-12'
-    },
-    {
-        id: '7',
-        artist: 'Talking Heads',
-        album: 'Remain in Light',
-        coverUrl: 'https://upload.wikimedia.org/wikipedia/en/2/26/Talking_Heads_-_Remain_in_Light.jpg',
-        score: 10,
-        genre: 'New Wave',
-        reviewText: 'Brian Eno production.',
-        date: '1980-10-08'
-    },
-    {
-        id: '8',
-        artist: 'Portishead',
-        album: 'Dummy',
-        coverUrl: 'https://upload.wikimedia.org/wikipedia/en/6/6f/Portishead_-_Dummy.png',
-        score: 9.2,
-        genre: 'Trip Hop',
-        reviewText: 'Haunting, cinematic.',
-        date: '1994-08-22'
-    },
-    {
-        id: '9',
-        artist: 'Massive Attack',
-        album: 'Mezzanine',
-        coverUrl: 'https://upload.wikimedia.org/wikipedia/en/e/e9/Massive_Attack_-_Mezzanine.png',
-        score: 9.8,
-        genre: 'Trip Hop',
-        reviewText: 'Dark, brooding, and bass-heavy.',
-        date: '1998-04-20'
-    },
-    {
-        id: '10',
-        artist: 'Aphex Twin',
-        album: 'SAW 85-92',
-        coverUrl: 'https://upload.wikimedia.org/wikipedia/en/8/82/Selected_Ambient_Works_85-92.png',
-        score: 9.5,
-        genre: 'Electronic',
-        reviewText: 'A milestone in ambient techno.',
-        date: '1992-11-09'
-    },
-    {
-        id: '11',
-        artist: 'My Bloody Valentine',
-        album: 'Loveless',
-        coverUrl: 'https://upload.wikimedia.org/wikipedia/en/4/4b/My_Bloody_Valentine_-_Loveless.png',
-        score: 10,
-        genre: 'Shoegaze',
-        reviewText: 'Pink noise perfection.',
-        date: '1991-11-04'
-    },
-    {
-        id: '12',
-        artist: 'Bjork',
-        album: 'Post',
-        coverUrl: 'https://upload.wikimedia.org/wikipedia/en/3/3a/Bjork_Post.png',
-        score: 9.0,
-        genre: 'Electronic',
-        reviewText: 'Eclectic and electric.',
-        date: '1995-06-13'
-    }
-];
-
 const ACTIVE_OFFSET = 2;
-const MAX_RENDER_DIST = 24;
+const MAX_RENDER_DIST = 30;
 
 function useAnimatedText(text) {
     const [display, setDisplay] = useState(text);
@@ -138,12 +17,10 @@ function useAnimatedText(text) {
     useEffect(() => {
         if (text !== display) {
             setIsFadingOut(true);
-
             const timer = setTimeout(() => {
                 setDisplay(text);
                 setIsFadingOut(false);
             }, 200);
-
             return () => clearTimeout(timer);
         }
     }, [text, display]);
@@ -151,15 +28,17 @@ function useAnimatedText(text) {
     return { display, isFadingOut };
 }
 
-export default function Blog() {
+export default function Blog({ reviews = [] }) {
     const [scrollPos, setScrollPos] = useState(-ACTIVE_OFFSET);
     const [showDetail, setShowDetail] = useState(false);
     const [filterGenre, setFilterGenre] = useState('All');
     const [sortBy, setSortBy] = useState('date');
-    const crateRef = useRef<HTMLDivElement>(null);
+
+    const interactionZoneRef = useRef<HTMLDivElement>(null);
+    const scrollAccumulator = useRef(0);
 
     const processedReviews = useMemo(() => {
-        let data = [...MOCK_REVIEWS];
+        let data = [...reviews];
 
         if (filterGenre !== 'All') {
             data = data.filter((r) => r.genre === filterGenre);
@@ -172,7 +51,6 @@ export default function Blog() {
         });
 
         const MIN_LOOP_SIZE = 45;
-
         if (data.length > 0 && data.length < MIN_LOOP_SIZE) {
             const copiesNeeded = Math.ceil(MIN_LOOP_SIZE / data.length);
             let paddedData = [];
@@ -183,11 +61,11 @@ export default function Blog() {
         }
 
         return data;
-    }, [filterGenre, sortBy]);
+    }, [filterGenre, sortBy, reviews]);
 
     const total = processedReviews.length;
 
-    let activeIndex = Math.round(scrollPos + ACTIVE_OFFSET) % total;
+    let activeIndex = (Math.round(scrollPos) + ACTIVE_OFFSET) % total;
     if (activeIndex < 0) activeIndex += total;
     const clickableAlbum = processedReviews[activeIndex];
 
@@ -195,18 +73,38 @@ export default function Blog() {
     const { display: animatedArtistText, isFadingOut } = useAnimatedText(activeArtist);
 
     useEffect(() => {
-        const handleScroll = (e) => {
+        const handleCrateScroll = (e) => {
             if (showDetail) return;
+
+            if (!interactionZoneRef.current?.contains(e.target)) {
+                return;
+            }
+
             e.preventDefault();
-            setScrollPos((prev) => {
-                const delta = e.deltaY * 0.0008;
-                return prev + delta;
-            });
+
+            scrollAccumulator.current += e.deltaY;
+            const SNAP_THRESHOLD = 100;
+
+            if (scrollAccumulator.current > SNAP_THRESHOLD) {
+                setScrollPos((prev) => prev + 1);
+                scrollAccumulator.current = 0;
+            } else if (scrollAccumulator.current < -SNAP_THRESHOLD) {
+                setScrollPos((prev) => prev - 1);
+                scrollAccumulator.current = 0;
+            }
         };
 
-        window.addEventListener('wheel', handleScroll, { passive: false });
-        return () => window.removeEventListener('wheel', handleScroll);
-    }, [showDetail, total]);
+        const element = interactionZoneRef.current;
+        if (element) {
+            element.addEventListener('wheel', handleCrateScroll, { passive: false });
+        }
+
+        return () => {
+            if (element) {
+                element.removeEventListener('wheel', handleCrateScroll);
+            }
+        };
+    }, [showDetail]);
 
     return (
         <>
@@ -215,14 +113,14 @@ export default function Blog() {
             </Head>
 
             <style jsx global>{`
-                body {
-                    overflow: hidden;
-                }
-
                 .crate-container {
                     position: relative;
-                    width: 100vw;
-                    height: 100vh;
+                    width: 100%;
+                    min-height: 90vh;
+                    background: var(--dark-brown);
+                    display: flex;
+                    justify-content: center;
+                    align-items: flex-end;
                     overflow: hidden;
                 }
 
@@ -232,12 +130,10 @@ export default function Blog() {
                     left: 50%;
                     transform: translate(-50%, -50%);
                     font-family: 'Impact', 'Arial Black', sans-serif;
-                    font-size: 15vw; /* Massive */
+                    font-size: 15vw;
                     text-transform: uppercase;
-
                     color: #f5f0e8;
                     opacity: 0.08;
-
                     letter-spacing: -0.05em;
                     white-space: nowrap;
                     pointer-events: none;
@@ -266,7 +162,7 @@ export default function Blog() {
                 }
             `}</style>
 
-            <nav className={layout['nav-bar']}>
+            <nav className={layout['nav-bar']} style={{ zIndex: 2900, position: 'sticky', top: 0 }}>
                 <div className={layout['nav-left']}>
                     <Link href="/" className={layout['home-link']}>
                         HOME
@@ -289,7 +185,7 @@ export default function Blog() {
                     <>
                         <div className={`floating-text ${isFadingOut ? 'fading-out' : ''}`}>{animatedArtistText}</div>
 
-                        <header className={crate['crate-header']}>
+                        <header className={crate['crate-header']} style={{ top: '5rem' }}>
                             <div className={crate.controls}>
                                 <div className={crate['control-group']}>
                                     <label>GENRE SELECTOR</label>
@@ -316,10 +212,30 @@ export default function Blog() {
                     </>
                 )}
 
-                <div className={crate['crate-display']} ref={crateRef}>
+                <div
+                    className={crate['crate-display']}
+                    ref={interactionZoneRef}
+                    style={{
+                        position: 'sticky',
+                        top: 0,
+                        height: '90vh',
+                        overflow: 'visible',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'flex-end',
+                        alignItems: 'center',
+                        paddingBottom: '0rem'
+                    }}
+                >
                     {!showDetail && (
-                        <div className={crate['crate-scene']}>
-                            <div className={crate['crate-structure']}>
+                        <div
+                            className={crate['crate-scene']}
+                            style={{ transform: 'translateY(-120px) rotateX(-10deg)' }}
+                        >
+                            <div
+                                className={crate['crate-structure']}
+                                style={{ top: 'auto', bottom: 0, transform: 'translate(-50%, 0)' }}
+                            >
                                 <div className={`${crate['crate-side']} ${crate.front} ${crate['crate-texture']}`}>
                                     <div className={`${crate['crate-sticker']} ${crate.s1}`}>FRESH FINDS</div>
                                     <div className={`${crate['crate-sticker']} ${crate.s2}`}>STAFF PICK</div>
@@ -336,14 +252,17 @@ export default function Blog() {
                                 ></div>
                             </div>
 
-                            <div className={crate['album-stack']}>
+                            <div
+                                className={crate['album-stack']}
+                                style={{ top: 'auto', bottom: 0, transform: 'translate(-50%, 0)' }}
+                            >
                                 {processedReviews.map((review, i) => {
                                     let dist = i - scrollPos;
 
                                     while (dist > total / 2) dist -= total;
                                     while (dist < -total / 2) dist += total;
 
-                                    if (dist < -5 || dist > MAX_RENDER_DIST) return null;
+                                    if (dist < -4 || dist > MAX_RENDER_DIST) return null;
 
                                     let yTrans = 0;
                                     let zTrans = 0;
@@ -356,22 +275,17 @@ export default function Blog() {
                                         const zStart = 300;
                                         const zSpacing = 120;
                                         zTrans = zStart - dist * zSpacing;
-
                                         yTrans = -60 - dist * 2;
                                         zIndex = 1000 - Math.floor(dist * 10);
 
                                         if (dist > 12) {
                                             opacity = Math.max(0, 1 - (dist - 12) / 8);
                                             brightness = Math.max(0.4, 1 - (dist - 12) / 8);
-                                        } else {
-                                            opacity = 1;
-                                            brightness = 1;
                                         }
                                     } else {
                                         const absDist = Math.abs(dist);
                                         zTrans = 300;
-                                        yTrans = -60 + absDist * 300;
-
+                                        yTrans = -60 + absDist * 350;
                                         zIndex = 900;
                                     }
 
@@ -399,7 +313,9 @@ export default function Blog() {
                                                 willChange: 'transform',
                                                 visibility: opacity <= 0.01 ? 'hidden' : 'visible',
                                                 cursor: 'pointer',
-                                                pointerEvents: 'auto'
+                                                pointerEvents: 'auto',
+                                                transition:
+                                                    'transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease'
                                             }}
                                             onClick={(e) => {
                                                 e.stopPropagation();
@@ -462,6 +378,39 @@ export default function Blog() {
                     )}
                 </div>
             </div>
+
+            <footer
+                className={layout.footer}
+                style={{
+                    position: 'relative',
+                    zIndex: 2000,
+                    marginTop: 0
+                }}
+            >
+                <div className={layout['footer-content']}>
+                    <div className={layout['footer-links']}>
+                        <Link href="/info">Info</Link>
+                        <Link href="/projects">Projects</Link>
+                        <Link href="/blog">Blog</Link>
+                        <a href="https://github.com/evanbones" target="_blank" rel="noopener noreferrer">
+                            GitHub
+                        </a>
+                    </div>
+                    <p className={layout.copyright}>© 2025 Evan Bowness.</p>
+                </div>
+            </footer>
         </>
     );
+}
+
+export async function getStaticProps() {
+    const filePath = path.join(process.cwd(), 'src', 'data', 'reviews.json');
+    const jsonData = await fs.readFile(filePath, 'utf-8');
+    const reviews = JSON.parse(jsonData);
+
+    return {
+        props: {
+            reviews
+        }
+    };
 }

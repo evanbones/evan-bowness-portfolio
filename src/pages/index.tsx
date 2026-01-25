@@ -73,7 +73,15 @@ export default function Home() {
                 <section className={`${cards['vinyl-card']} ${home['contact-section']}`}>
                     <h2>GET IN TOUCH</h2>
                     <p>Have a project in mind? Let&apos;s work together!</p>
-                    <form onSubmit={handleSubmit} className={home['contact-form']}>
+                    <form
+                        name="contact"
+                        method="POST"
+                        data-netlify="true"
+                        onSubmit={handleSubmit}
+                        className={home['contact-form']}
+                    >
+                        <input type="hidden" name="form-name" value="contact" />
+
                         <div className={home['form-group']}>
                             <label htmlFor="name">Name</label>
                             <input
