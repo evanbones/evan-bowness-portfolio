@@ -24,6 +24,7 @@
 h2 {
     color: var(--text-header);
     margin-bottom: 2rem;
+    text-shadow: 4px 4px 0 #000000;
 }
 
 body {

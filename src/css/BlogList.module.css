@@ -5,9 +5,27 @@
     gap: 1rem;
 }
 
+.searchWrapper {
+    position: relative;
+    width: 100%;
+}
+
+.searchIcon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    color: #888;
+    pointer-events: none;
+    z-index: 10;
+}
+
 .searchBar {
     width: 100%;
     padding: 1rem;
+    padding-left: 3rem;
     background: var(--bg-surface);
     border: 2px solid #000;
     border-radius: var(--radius-md);
@@ -21,8 +39,11 @@
 .searchBar:focus {
     outline: none;
     border-color: var(--accent-hover);
-    transform: translate(-2px, -2px);
     box-shadow: 10px 10px 0 #000;
+}
+
+.searchWrapper:focus-within {
+    transform: translate(-2px, -2px);
 }
 
 .filterBar {

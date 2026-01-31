@@ -8,6 +8,7 @@
     font-weight: 900;
     margin-bottom: 1rem;
     color: var(--text-header);
+    text-shadow: 8px 8px 0 #000000;
 }
 
 .hero h1 span {
