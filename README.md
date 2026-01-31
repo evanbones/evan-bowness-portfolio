@@ -1,13 +1,13 @@
 # Evan Bowness - Portfolio Website
 
-A retro-futurist portfolio and music blog built with Next.js, featuring a 3D interactive vinyl crate.
+A clean, neo-brutalist portfolio built with Next.js, featuring a Spotify API-integrated music review blog.
 
 ![Project Status](https://img.shields.io/badge/status-active-success)
 ![Tech Stack](https://img.shields.io/badge/built%20with-Next.js%20%7C%20React%20%7C%20TypeScript-blue)
 
 ## About
 
-The centerpiece of the site is a 3D crate, a React interface that simulates the experience of flipping through vinyl records. It serves as the navigation for my music blog, allowing users to scroll, select, and "play" albums to read reviews.
+The centerpiece of the site is a live-updating, data-driven music blog, powered by the Spotify API. There's also details on me and some of my personal projects.
 
 **[Link to Live Site](https://evanbowness.dev)**
 
@@ -47,6 +47,23 @@ To run this project locally:
     ```
 
 4.  Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Spotify API Integration
+
+After creating a new Spotify app, create a .env file with the following:
+
+```
+SPOTIFY_CLIENT_ID=your client ID
+SPOTIFY_CLIENT_SECRET=your Spotify app secret
+```
+
+Then, to start a new review, run:
+
+```bash
+npm run review "Radiohead" "In Rainbows"
+```
+
+This will automatically populate `src/data/reviews.json` with the album's cover art, year, genres, and Spotify link. You can then open the JSON file and simply fill in the `score` and `review_text` fields.
 
 ## License
 

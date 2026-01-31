@@ -1,22 +1,35 @@
 [
     {
-        "id": "1",
-        "artist": "Slowdive",
+        "id": "2",
+        "score": 0,
         "album": "Souvlaki",
-        "coverUrl": "https://upload.wikimedia.org/wikipedia/en/a/a6/Souvlaki_%28album%29_cover.jpg",
-        "score": 10.0,
-        "genre": "Shoegaze",
-        "reviewText": "One of my all-time favourites.",
-        "date": "2026-01-24"
+        "artist": "Slowdive",
+        "genres": [
+            "Shoegaze",
+            "Dream Pop",
+            "Slowcore"
+        ],
+        "media_links": {
+            "Spotify": "https://open.spotify.com/album/4i21O3uVh5palcfFhCjlT7"
+        },
+        "year": "1994",
+        "cover_url": "https://i.scdn.co/image/ab67616d0000b27353da07db25e2543cce38abfe",
+        "review_text": "TODO: Write review here..."
     },
     {
-        "id": "2",
-        "artist": "The Beach Boys",
-        "album": "Pet Sounds",
-        "coverUrl": "https://upload.wikimedia.org/wikipedia/en/b/bb/PetSoundsCover.jpg",
-        "score": 10.0,
-        "genre": "Pop",
-        "reviewText": "A timeless masterpiece.",
-        "date": "2026-01-24"
+        "id": "1",
+        "score": 0,
+        "album": "In Rainbows",
+        "artist": "Radiohead",
+        "genres": [
+            "Art Rock",
+            "Alternative Rock"
+        ],
+        "media_links": {
+            "Spotify": "https://open.spotify.com/album/5vkqYmiPBYLaalcmjujWxK"
+        },
+        "year": "2007",
+        "cover_url": "https://i.scdn.co/image/ab67616d0000b273de3c04b5fc750b68899b20a9",
+        "review_text": "TODO: Write review here..."
     }
 ]
