@@ -382,7 +382,7 @@ export default function Blog({ reviews = [] }) {
                                     </div>
                                     <div className="player-info">
                                         <div className={player['info-header']}>
-                                            <span className={player['genre-tag']}>{clickableAlbum.genre}</span>
+                                            <span className={player['tag']}>{clickableAlbum.genre}</span>
                                             <h2>{clickableAlbum.album}</h2>
                                             <h3>{clickableAlbum.artist}</h3>
                                         </div>
@@ -420,7 +420,7 @@ export default function Blog({ reviews = [] }) {
                             GitHub
                         </a>
                     </div>
-                    <p className={layout.copyright}>© 2025 Evan Bowness.</p>
+                    <p className={layout.copyright}>© 2025 Evan Bowness. All rights reserved.</p>
                 </div>
             </footer>
         </>

@@ -1,89 +1,50 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..800&display=swap');
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 :root {
-  --burnt-orange: #D4774E;
-  --mustard-yellow: #E8B44F;
-  --avocado-green: #7B9E6F;
-  --rust-red: #A64B3A;
-  --cream: #F5E6D3;
-  --dark-brown: #3D2E26;
-  --warm-tan: #D9C5B2;
-}
+    --bg-app: #101828;
+    --bg-surface: #1e2939;
+    --bg-input: #101828;
 
-::-webkit-scrollbar {
-  width: 14px;
-}
-::-webkit-scrollbar-track {
-  background: var(--dark-brown);
-  border-left: 1px solid rgba(212, 119, 78, 0.2);
-}
-::-webkit-scrollbar-thumb {
-  background-color: var(--burnt-orange);
-  border: 3px solid var(--dark-brown);
-  border-radius: 20px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background-color: var(--mustard-yellow);
+    --text-body: #ffffff;
+    --text-header: #ffffff;
+
+    --accent-hover: #ff911a;
+
+    --shadow-solid: 8px 8px 0px #000000;
+
+    --radius-md: 8px;
 }
 
 body {
-  font-family: 'Courier New', monospace;
-  background: var(--dark-brown);
-  min-height: 100vh;
-  color: var(--cream);
-  line-height: 1.6;
-  position: relative;
-  overflow-x: hidden;
+    font-family: 'Inter', system-ui, sans-serif;
+    background-color: var(--bg-app);
+    color: var(--text-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
 }
 
-body::before {
-  content: '';
-  position: fixed;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='3.5' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  opacity: 0.08;
-  pointer-events: none;
-  z-index: 9999;
-  animation: grain 8s steps(10) infinite;
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.2s ease;
 }
 
-body::after {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: repeating-linear-gradient(
-    0deg,
-    rgba(0, 0, 0, 0.1),
-    rgba(0, 0, 0, 0.1) 1px,
-    transparent 1px,
-    transparent 2px
-  );
-  pointer-events: none;
-  z-index: 9998;
-  opacity: 0.3;
+::-webkit-scrollbar {
+    width: 10px;
 }
-
-@keyframes grain {
-  0%, 100% { transform: translate(0, 0); }
-  10% { transform: translate(-5%, -5%); }
-  20% { transform: translate(-10%, 5%); }
-  30% { transform: translate(5%, -10%); }
-  40% { transform: translate(-5%, 10%); }
-  50% { transform: translate(-10%, 5%); }
-  60% { transform: translate(10%, 0%); }
-  70% { transform: translate(0%, 10%); }
-  80% { transform: translate(5%, 5%); }
-  90% { transform: translate(-5%, 0%); }
+::-webkit-scrollbar-track {
+    background: var(--bg-app);
+}
+::-webkit-scrollbar-thumb {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--bg-app);
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--accent-hover);
 }

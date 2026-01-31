@@ -1,9 +1,9 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useState } from 'react';
+import cards from '../css/Card.module.css';
 import home from '../css/Home.module.css';
 import layout from '../css/Layout.module.css';
-import cards from '../css/VinylCard.module.css';
 
 export default function Home() {
     const [formData, setFormData] = useState({
@@ -72,7 +72,7 @@ export default function Home() {
                     <p className={home.subtitle}>Developer & Creator</p>
                 </header>
 
-                <section className={cards['vinyl-card']}>
+                <section className={cards['card']}>
                     <h2>WELCOME</h2>
                     <p>
                         I&apos;m a full stack developer based in Canada with a focus on system design. My background
@@ -82,7 +82,7 @@ export default function Home() {
                     <p>Check out my work, read my thoughts, or get in touch below.</p>
                 </section>
 
-                <section className={`${cards['vinyl-card']} ${home['contact-section']}`}>
+                <section className={`${cards['card']} ${home['contact-section']}`}>
                     <h2>GET IN TOUCH</h2>
                     <p>Have a project in mind? Let&apos;s work together!</p>
                     <form
@@ -151,7 +151,7 @@ export default function Home() {
                             GitHub
                         </a>
                     </div>
-                    <p className={layout.copyright}>© 2025 Evan Bowness.</p>
+                    <p className={layout.copyright}>© 2025 Evan Bowness. All rights reserved.</p>
                 </div>
             </footer>
         </>

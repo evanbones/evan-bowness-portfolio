@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import cards from '../css/Card.module.css';
 import layout from '../css/Layout.module.css';
-import cards from '../css/VinylCard.module.css';
 
 export default function Info() {
     return (
@@ -34,7 +34,7 @@ export default function Info() {
                     <h1>ABOUT ME</h1>
                 </header>
 
-                <section className={cards['vinyl-card']}>
+                <section className={cards['card']}>
                     <h2>WHO I AM</h2>
                     <p>
                         Hey there! I&apos;m Evan, a junior developer passionate about building creative projects that
@@ -46,7 +46,7 @@ export default function Info() {
                     </p>
                 </section>
 
-                <section className={cards['vinyl-card']}>
+                <section className={cards['card']}>
                     <h2>WHAT I DO</h2>
                     <p>
                         I&apos;m currently working towards finishing my degree in Computer Science at the University of
@@ -55,7 +55,7 @@ export default function Info() {
                     </p>
                 </section>
 
-                <section className={cards['vinyl-card']}>
+                <section className={cards['card']}>
                     <h2>EXPERIENCE</h2>
                     <div className={cards.timeline}>
                         <div className={cards['timeline-item']}>
@@ -87,7 +87,7 @@ export default function Info() {
                     </div>
                 </section>
 
-                <section className={cards['vinyl-card']}>
+                <section className={cards['card']}>
                     <h2>WHEN I&apos;M NOT CODING</h2>
                     <p>
                         You&apos;ll usually find me discovering new music, reading a book, drinking coffee, watching
@@ -106,7 +106,7 @@ export default function Info() {
                             GitHub
                         </a>
                     </div>
-                    <p className={layout.copyright}>© 2025 Evan Bowness.</p>
+                    <p className={layout.copyright}>© 2025 Evan Bowness. All rights reserved.</p>
                 </div>
             </footer>
         </>

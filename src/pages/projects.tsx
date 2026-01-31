@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import cards from '../css/Card.module.css';
 import layout from '../css/Layout.module.css';
-import cards from '../css/VinylCard.module.css';
 
 export default function Projects() {
     return (
@@ -34,17 +34,17 @@ export default function Projects() {
                     <h1>PROJECTS</h1>
                 </header>
 
-                <section className={cards['vinyl-card']}>
+                <section className={cards['card']}>
                     <h2>PORTFOLIO WEBSITE</h2>
                     <p className={cards['project-year']}>2025</p>
                     <p>
-                        A 70s-inspired personal portfolio and music blog featuring interactive elements, smooth
-                        animations, and a retro aesthetic. Built with Next.js and custom CSS to create a vintage feel.
+                        A simple and modern personal portfolio and music blog featuring interactive elements, smooth
+                        animations, and a clean aesthetic. Built with Next.js and custom CSS.
                     </p>
-                    <div className={cards['genre-tags']}>
-                        <span className={cards['genre-tag']}>Next.js</span>
-                        <span className={cards['genre-tag']}>React</span>
-                        <span className={cards['genre-tag']}>TypeScript</span>
+                    <div className={cards['tags']}>
+                        <span className={cards['tag']}>Next.js</span>
+                        <span className={cards['tag']}>React</span>
+                        <span className={cards['tag']}>TypeScript</span>
                     </div>
                     <div className={cards['project-links']}>
                         <a
@@ -61,7 +61,7 @@ export default function Projects() {
                     </div>
                 </section>
 
-                <section className={cards['vinyl-card']}>
+                <section className={cards['card']}>
                     <h2>iGIFup</h2>
                     <p className={cards['project-year']}>2025</p>
                     <p>
@@ -69,10 +69,10 @@ export default function Projects() {
                         Introduction to Database Systems. Awarded top project of the year in the class, as well as being
                         named in the most unique projects of the year.
                     </p>
-                    <div className={cards['genre-tags']}>
-                        <span className={cards['genre-tag']}>SQL Server</span>
-                        <span className={cards['genre-tag']}>JSP</span>
-                        <span className={cards['genre-tag']}>Java</span>
+                    <div className={cards['tags']}>
+                        <span className={cards['tag']}>SQL Server</span>
+                        <span className={cards['tag']}>JSP</span>
+                        <span className={cards['tag']}>Java</span>
                     </div>
                     <div className={cards['project-links']}>
                         <a
@@ -89,17 +89,17 @@ export default function Projects() {
                     </div>
                 </section>
 
-                <section className={cards['vinyl-card']}>
+                <section className={cards['card']}>
                     <h2>TUNE GUI</h2>
                     <p className={cards['project-year']}>2025</p>
                     <p>
                         A PyQt5-based GUI for tuning ROS2 node parameters and editing params.yaml files in real-time.
                         Created as part of my work for the Okanagan Marine Robotics Club.
                     </p>
-                    <div className={cards['genre-tags']}>
-                        <span className={cards['genre-tag']}>Python</span>
-                        <span className={cards['genre-tag']}>ROS2</span>
-                        <span className={cards['genre-tag']}>PyQt5</span>
+                    <div className={cards['tags']}>
+                        <span className={cards['tag']}>Python</span>
+                        <span className={cards['tag']}>ROS2</span>
+                        <span className={cards['tag']}>PyQt5</span>
                     </div>
                     <div className={cards['project-links']}>
                         <a
@@ -119,7 +119,7 @@ export default function Projects() {
                     </div>
                 </section>
 
-                <section className={cards['vinyl-card']}>
+                <section className={cards['card']}>
                     <h2>DATASET SYSTEM FOR MOVIES</h2>
                     <p className={cards['project-year']}>2023</p>
                     <p>
@@ -128,10 +128,10 @@ export default function Projects() {
                         recommendations based on user preferences. Comprehensive CI/CD using GitHub Actions and Docker,
                         and a full test suite with PyTest.
                     </p>
-                    <div className={cards['genre-tags']}>
-                        <span className={cards['genre-tag']}>Next.js</span>
-                        <span className={cards['genre-tag']}>FastAPI</span>
-                        <span className={cards['genre-tag']}>TypeScript</span>
+                    <div className={cards['tags']}>
+                        <span className={cards['tag']}>Next.js</span>
+                        <span className={cards['tag']}>FastAPI</span>
+                        <span className={cards['tag']}>TypeScript</span>
                     </div>
                     <div className={cards['project-links']}>
                         <a
@@ -151,7 +151,7 @@ export default function Projects() {
                     </div>
                 </section>
 
-                <section className={cards['vinyl-card']}>
+                <section className={cards['card']}>
                     <h2>MINECRAFT MODS</h2>
                     <p className={cards['project-year']}>2021</p>
                     <p>
@@ -159,10 +159,10 @@ export default function Projects() {
                         mod, Wolf Armor Compat, has over 3.8 million downloads on CurseForge, and I&apos;ve contributed
                         to other mods with download counts in the millions.
                     </p>
-                    <div className={cards['genre-tags']}>
-                        <span className={cards['genre-tag']}>Java</span>
-                        <span className={cards['genre-tag']}>Gradle</span>
-                        <span className={cards['genre-tag']}>Kotlin</span>
+                    <div className={cards['tags']}>
+                        <span className={cards['tag']}>Java</span>
+                        <span className={cards['tag']}>Gradle</span>
+                        <span className={cards['tag']}>Kotlin</span>
                     </div>
                     <div className={cards['project-links']}>
                         <a
@@ -195,7 +195,7 @@ export default function Projects() {
                             GitHub
                         </a>
                     </div>
-                    <p className={layout.copyright}>© 2025 Evan Bowness.</p>
+                    <p className={layout.copyright}>© 2025 Evan Bowness. All rights reserved.</p>
                 </div>
             </footer>
         </>

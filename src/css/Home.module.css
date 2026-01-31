@@ -1,139 +1,98 @@
 .hero {
     text-align: center;
-    padding: 4rem 0;
-    margin-bottom: 3rem;
+    padding: 2rem 0;
 }
 
 .hero h1 {
-    font-family: 'Fraunces', serif;
-    font-weight: 900;
     font-size: 5rem;
-    color: var(--cream);
-    text-shadow:
-        3px 3px 0 var(--burnt-orange),
-        6px 6px 0 var(--rust-red),
-        9px 9px 0 var(--avocado-green);
+    font-weight: 900;
     margin-bottom: 1rem;
-    letter-spacing: 2px;
-    animation: float 3s ease-in-out infinite;
+    color: var(--text-header);
 }
 
-@keyframes float {
-    0%,
-    100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-10px);
-    }
+.hero h1 span {
+    color: var(--accent-hover);
 }
 
 .subtitle {
-    font-family: 'Courier New', monospace;
     font-size: 1.5rem;
-    color: var(--mustard-yellow);
-    letter-spacing: 3px;
-    margin-bottom: 2rem;
-    text-transform: uppercase;
-    text-shadow: 0 0 5px rgba(232, 180, 79, 0.3);
+    color: var(--text-body);
+    max-width: 600px;
+    margin: 0 auto 2rem auto;
 }
 
 .contact-section {
-    border-color: var(--avocado-green);
+    background: var(--bg-surface);
+    border: 2px solid #000;
+    box-shadow: var(--shadow-solid);
+    border-radius: var(--radius-md);
+    padding: 2rem;
+    margin-top: 2rem;
 }
 
-.contact-form {
-    margin-top: 2rem;
-    max-width: 600px;
+.contact-section h2 {
+    color: var(--text-header);
+    margin-bottom: 2rem;
 }
 
 .form-group {
     margin-bottom: 1.5rem;
+    text-align: left;
 }
 
 .form-group label {
     display: block;
-    color: var(--mustard-yellow);
-    font-weight: bold;
+    font-weight: 700;
+    color: var(--text-header);
     margin-bottom: 0.5rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
 }
 
 .form-group input,
 .form-group textarea {
     width: 100%;
-    padding: 0.8rem;
-    background: var(--dark-brown);
-    border: 3px solid var(--burnt-orange);
-    color: var(--cream);
-    font-family: 'Courier New', monospace;
-    font-size: 1rem;
-    transition: all 0.3s ease;
+    padding: 1rem;
+    background: var(--bg-app);
+    border: 1px solid #000;
+    color: var(--text-body);
+    font-family: inherit;
+    border-radius: 4px;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: var(--avocado-green);
-    box-shadow: 5px 5px 0 rgba(123, 158, 111, 0.3);
+    border-color: var(--accent-hover);
 }
 
 .submit-btn {
-    background: var(--burnt-orange);
-    color: var(--cream);
-    border: none;
+    background: var(--text-body);
+    color: #000;
+    border: 2px solid #000;
     padding: 1rem 2rem;
-    font-size: 1.1rem;
-    font-weight: bold;
+    font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 2px;
     cursor: pointer;
-    transform: skew(-5deg);
-    transition: all 0.3s ease;
-    font-family: 'Courier New', monospace;
+    box-shadow: 4px 4px 0 #000;
+    transition: all 0.1s ease;
     margin-top: 1rem;
+    margin-bottom: 2rem;
 }
 
 .submit-btn:hover {
-    background: var(--avocado-green);
-    transform: skew(-5deg) scale(1.05);
-    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.3);
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
-}
-
-.contact-email {
-    margin-top: 2rem;
-    font-size: 1.1rem;
-}
-
-.contact-email a {
-    color: var(--burnt-orange);
-    text-decoration: none;
-    border-bottom: 2px solid var(--burnt-orange);
-    transition: all 0.3s ease;
-}
-
-.contact-email a:hover {
-    color: var(--avocado-green);
-    border-bottom-color: var(--avocado-green);
-    text-shadow: 0 0 5px var(--avocado-green);
-}
-
-@media (max-width: 768px) {
-    .hero h1 {
-        font-size: 3rem;
-    }
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 #000;
+    background: var(--accent-hover);
+    color: #fff;
 }
 
 .success-message {
-    margin-top: 1rem;
-    color: var(--avocado-green);
+    margin-top: 1.5rem;
+    color: var(--accent-hover);
     font-weight: bold;
-    font-family: 'Courier New', monospace;
-    text-transform: uppercase;
-    text-align: center;
-    border: 2px dashed var(--avocado-green);
-    padding: 1rem;
-    animation: float 0.5s ease-out;
+}
+
+.contact-email a {
+    color: var(--text-primary);
+    text-decoration: underline;
+    text-underline-offset: 4px;
 }
