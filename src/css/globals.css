@@ -21,6 +21,11 @@
     --radius-md: 8px;
 }
 
+h2 {
+    color: var(--text-header);
+    margin-bottom: 2rem;
+}
+
 body {
     font-family: 'Inter', system-ui, sans-serif;
     background-color: var(--bg-app);

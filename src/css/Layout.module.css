@@ -17,6 +17,16 @@
     color: var(--text-body);
     letter-spacing: -0.5px;
     text-decoration: none;
+    display: flex;
+    align-items: center;
+    transition:
+        transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        color 0.2s ease;
+}
+
+.nav-left .home-link:hover {
+    color: var(--accent-hover);
+    transform: scale(1.15) rotate(-5deg);
 }
 
 .nav-right {
