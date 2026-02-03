@@ -110,8 +110,8 @@ export default function Projects() {
                     <p>
                         A full-stack movie recommendation website using Next.js and FastAPI. Created for COSC 310 -
                         Software Engineering. Features user authentication, movie ratings, and personalized
-                        recommendations based on user preferences. Comprehensive CI/CD using GitHub Actions and Docker,
-                        and a full test suite with PyTest.
+                        recommendations based on user preferences. Includes comprehensive CI/CD using GitHub Actions and
+                        Docker, and a full test suite with PyTest.
                     </p>
                     <div className={cards['tags']}>
                         <span className={cards['tag']}>Next.js</span>
@@ -140,9 +140,9 @@ export default function Projects() {
                 <section className={cards['card']}>
                     <p className={cards['project-year']}>2021</p>
                     <p>
-                        I develop and maintain numerous Minecraft mods using Java and (Neo)Forge/Fabric. My most popular
-                        mod, Wolf Armor Compat, has over 3.8 million downloads on CurseForge, and I&apos;ve contributed
-                        to other mods with download counts in the millions.
+                        I develop and maintain numerous Minecraft mods using Java and (Neo)Forge/Fabric. I personally
+                        have over 6 million CurseForge downloads, and I&apos;ve contributed to other mods with download
+                        counts in the millions.
                     </p>
                     <div className={cards['tags']}>
                         <span className={cards['tag']}>Java</span>
