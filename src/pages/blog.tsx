@@ -174,9 +174,8 @@ const AVAILABLE_GENRES = [
     'Yacht Rock'
 ];
 
-const getPageNumbers = (current: number, total: number) => {
+const getPageNumbers = (current: number, total: number, delta = 2) => {
     if (total <= 1) return [];
-    const delta = 2;
     const range = [];
     for (let i = Math.max(2, current - delta); i <= Math.min(total - 1, current + delta); i++) {
         range.push(i);
@@ -213,6 +212,7 @@ export default function Blog() {
     const [selectedScores, setSelectedScores] = useState<number[]>([]);
     const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
     const [genreSearch, setGenreSearch] = useState('');
+    const [paginationDelta, setPaginationDelta] = useState(2);
 
     const [activeReview, setActiveReview] = useState<Review | null>(null);
 
@@ -246,6 +246,17 @@ export default function Blog() {
     useEffect(() => {
         setPage(1);
     }, [debouncedSearch, sortBy, selectedScores, selectedGenres, pageSize]);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setPaginationDelta(window.innerWidth < 640 ? 1 : 2);
+        };
+
+        handleResize();
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     useEffect(() => {
         fetchReviews();
@@ -289,7 +300,7 @@ export default function Blog() {
 
     const Pagination = ({ isBottom = false }) => {
         if (totalPages <= 1) return null;
-        const pages = getPageNumbers(page, totalPages);
+        const pages = getPageNumbers(page, totalPages, paginationDelta);
 
         return (
             <div className={styles.pagination}>
