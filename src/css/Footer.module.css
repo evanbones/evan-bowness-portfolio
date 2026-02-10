@@ -1,0 +1,96 @@
+.footer {
+    background-color: var(--color-raised-bg);
+    border-top: 1px solid var(--color-border);
+    padding: 4rem 2rem 2rem;
+    margin-top: auto;
+    width: 100%;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 4rem;
+    padding-bottom: 4rem;
+}
+
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+}
+
+.brand {
+    font-weight: 900;
+    font-size: 1.5rem;
+    letter-spacing: -1px;
+    color: var(--color-text-main);
+    margin-bottom: 1rem;
+}
+
+.brandDot {
+    color: var(--color-brand);
+}
+
+.tagline {
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    max-width: 300px;
+    font-size: 0.95rem;
+}
+
+.heading {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+}
+
+.links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.link {
+    color: var(--color-text-main);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.2s ease;
+    width: fit-content;
+}
+
+.link:hover {
+    color: var(--color-brand);
+}
+
+.socialLink {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-text-main);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.2s ease;
+    width: fit-content;
+}
+
+.socialLink:hover {
+    color: var(--color-brand);
+}
+
+.socialLink:hover .arrow {
+    transform: translate(2px, -2px);
+    opacity: 1;
+}
+
+.arrow {
+    opacity: 0.5;
+    transition: all 0.2s ease;
+}

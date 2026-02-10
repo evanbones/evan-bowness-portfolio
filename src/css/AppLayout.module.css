@@ -1,0 +1,119 @@
+.appContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    background-color: var(--color-bg);
+    overflow: hidden;
+}
+
+.navbar {
+    height: var(--nav-height);
+    background-color: var(--color-raised-bg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.5rem;
+    flex-shrink: 0;
+    z-index: 50;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.navLeft {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 200px;
+}
+
+.brandDot {
+    width: 24px;
+    height: 24px;
+    background-color: var(--color-brand);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--color-brand-dim);
+}
+
+.brandName {
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: -0.02em;
+    color: var(--color-text-main);
+}
+
+.navLinks {
+    display: flex;
+    gap: 0.5rem;
+    height: 100%;
+}
+
+.navItem {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0 1.25rem;
+    height: 40px;
+    margin: auto 0;
+    border-radius: 99px;
+    color: var(--color-text-muted);
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.navItem:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--color-text-main);
+}
+
+.navItem.active {
+    background-color: var(--color-brand);
+    color: #000;
+}
+
+.navRight {
+    width: 200px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.iconLink {
+    color: var(--color-text-muted);
+    transition: color 0.2s ease;
+    display: flex;
+    align-items: center;
+}
+
+.iconLink:hover {
+    color: var(--color-text-main);
+}
+
+.mainContent {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-bg);
+}
+
+.scrollContainer {
+    height: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.contentWrapper {
+    flex: 1;
+    padding: 2rem;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.internalFooter {
+    padding: 2rem;
+    text-align: center;
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+    margin-top: auto;
+}

@@ -1,38 +1,73 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..800&display=swap');
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
 
 :root {
-    --bg-app: #101828;
-    --bg-surface: #1e2939;
-    --bg-input: #101828;
+    /* -- User Requested Colors -- */
+    --color-bg: #16181c; /* Background */
+    --color-raised-bg: #27292e; /* Cards */
+    --color-input-bg: #34363c; /* New: Input fields */
+    --color-brand: #a855f7; /* Brand: Purple */
 
-    --text-body: #ffffff;
-    --text-header: #ffffff;
+    /* -- Derived/Updated Colors -- */
+    /* Updated borders to match your input color for a clean look */
+    --color-border: #34363c;
+    /* Hover state slightly lighter than the card background */
+    --color-raised-hover: #34363c;
 
-    --accent-hover: #ff911a;
+    --color-text-main: #e2e8f0;
+    --color-text-muted: #94a3b8;
 
-    --shadow-solid: 8px 8px 0px #000000;
+    /* Updated brand dim to match the new purple */
+    --color-brand-dim: rgba(168, 85, 247, 0.15);
 
-    --radius-md: 8px;
+    --radius-xl: 24px;
+    --radius-lg: 12px;
+    --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+
+    --nav-height: 64px;
 }
 
-h2 {
-    color: var(--text-header);
-    margin-bottom: 2rem;
-    text-shadow: 4px 4px 0 #000000;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
+html,
 body {
-    font-family: 'Inter', system-ui, sans-serif;
-    background-color: var(--bg-app);
-    color: var(--text-body);
-    line-height: 1.6;
+    height: 100%;
+    width: 100%;
+    background-color: var(--color-bg);
+    color: var(--color-text-main);
+    font-family:
+        'Inter',
+        -apple-system,
+        BlinkMacSystemFont,
+        'Segoe UI',
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
     -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 800;
+    color: var(--color-text-main);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+
+p {
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    color: var(--color-text-muted);
 }
 
 a {
@@ -42,15 +77,17 @@ a {
 }
 
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 14px;
+    height: 14px;
 }
 ::-webkit-scrollbar-track {
-    background: var(--bg-app);
+    background: var(--color-bg);
 }
 ::-webkit-scrollbar-thumb {
-    background-color: var(--bg-surface);
-    border: 1px solid var(--bg-app);
+    background-color: var(--color-raised-bg);
+    border: 4px solid var(--color-bg);
+    border-radius: 99px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background-color: var(--accent-hover);
+    background-color: var(--color-border);
 }

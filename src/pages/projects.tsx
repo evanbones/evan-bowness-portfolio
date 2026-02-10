@@ -1,35 +1,57 @@
-import Footer from '@/components/Footer';
-import Header from '@/components/Header';
+import AppLayout from '@/components/AppLayout';
+import { ExternalLink, Github } from 'lucide-react';
 import Head from 'next/head';
 import cards from '../css/Card.module.css';
 import layout from '../css/Layout.module.css';
 
+const getHashColor = (str: string) => {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+        hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const hue = Math.abs(hash % 360);
+    return `hsl(${hue}, 70%, 60%)`;
+};
+
 export default function Projects() {
+    const renderTag = (tag: string) => (
+        <span
+            key={tag}
+            className={cards.tag}
+            style={{
+                color: getHashColor(tag),
+                borderColor: getHashColor(tag) + '40',
+                backgroundColor: getHashColor(tag) + '10'
+            }}
+        >
+            {tag}
+        </span>
+    );
+
     return (
-        <>
+        <AppLayout>
             <Head>
                 <title>Projects - Evan Bowness</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </Head>
 
-            <Header />
+            <div className={cards['header-widget']}>
+                <h1>Projects</h1>
+                <p>A collection of my work in web development, robotics, and software engineering.</p>
+            </div>
 
-            <div className={layout.container}>
-                <header className={layout['page-header']}>
-                    <h1>PROJECTS</h1>
-                </header>
-
-                <h2>PORTFOLIO WEBSITE</h2>
+            <div className={layout.grid}>
                 <section className={cards['card']}>
-                    <p className={cards['project-year']}>2025</p>
+                    <div className={cards['card-header']}>
+                        <h2>Portfolio Website</h2>
+                        <span className={cards['project-year']}>2025</span>
+                    </div>
                     <p>
                         A simple and modern personal portfolio and music blog featuring interactive elements, smooth
                         animations, and a clean aesthetic. Built with Next.js and custom CSS.
                     </p>
                     <div className={cards['tags']}>
-                        <span className={cards['tag']}>Next.js</span>
-                        <span className={cards['tag']}>React</span>
-                        <span className={cards['tag']}>TypeScript</span>
+                        {['Next.js', 'React', 'TypeScript', 'CSS Modules'].map(renderTag)}
                     </div>
                     <div className={cards['project-links']}>
                         <a
@@ -38,27 +60,24 @@ export default function Projects() {
                             rel="noopener noreferrer"
                             className={cards['project-link']}
                         >
-                            VIEW CODE
+                            <Github size={18} /> Code
                         </a>
                         <a href="https://evanbowness.dev/" className={cards['project-link']}>
-                            LIVE DEMO
+                            <ExternalLink size={18} /> Live Demo
                         </a>
                     </div>
                 </section>
 
-                <h2>iGIFup</h2>
                 <section className={cards['card']}>
-                    <p className={cards['project-year']}>2025</p>
-                    <p>
-                        An early 2000s-style e-commerce site for buying and selling retro GIFs, created for COSC 304 -
-                        Introduction to Database Systems. Awarded top project of the year in the class, as well as being
-                        named in the most unique projects of the year.
-                    </p>
-                    <div className={cards['tags']}>
-                        <span className={cards['tag']}>SQL Server</span>
-                        <span className={cards['tag']}>JSP</span>
-                        <span className={cards['tag']}>Java</span>
+                    <div className={cards['card-header']}>
+                        <h2>iGIFup</h2>
+                        <span className={cards['project-year']}>2025</span>
                     </div>
+                    <p>
+                        An early 2000s-style e-commerce site for buying and selling retro GIFs. Awarded top project of
+                        the year in the class, as well as being named in the most unique projects of the year.
+                    </p>
+                    <div className={cards['tags']}>{['SQL Server', 'JSP', 'Java', 'HTML/CSS'].map(renderTag)}</div>
                     <div className={cards['project-links']}>
                         <a
                             href="https://github.com/evanbones/iGIFup"
@@ -66,57 +85,47 @@ export default function Projects() {
                             rel="noopener noreferrer"
                             className={cards['project-link']}
                         >
-                            VIEW CODE
+                            <Github size={18} /> Code
                         </a>
                         <a href="https://igifup.azurewebsites.net/" className={cards['project-link']}>
-                            LIVE DEMO
+                            <ExternalLink size={18} /> Live Demo
                         </a>
                     </div>
                 </section>
 
-                <h2>TUNE GUI</h2>
                 <section className={cards['card']}>
-                    <p className={cards['project-year']}>2025</p>
+                    <div className={cards['card-header']}>
+                        <h2>Tune GUI</h2>
+                        <span className={cards['project-year']}>2025</span>
+                    </div>
                     <p>
                         A PyQt5-based GUI for tuning ROS2 node parameters and editing params.yaml files in real-time.
                         Created as part of my work for the Okanagan Marine Robotics Club.
                     </p>
-                    <div className={cards['tags']}>
-                        <span className={cards['tag']}>Python</span>
-                        <span className={cards['tag']}>ROS2</span>
-                        <span className={cards['tag']}>PyQt5</span>
-                    </div>
+                    <div className={cards['tags']}>{['Python', 'ROS2', 'PyQt5', 'Robotics'].map(renderTag)}</div>
                     <div className={cards['project-links']}>
                         <a
-                            href="https://github.com/Okanagan-Marine-Robotics/tune_guis"
+                            href="https://github.com/Okanagan-Marine-Robotics/tune_gui"
                             target="_blank"
                             rel="noopener noreferrer"
                             className={cards['project-link']}
                         >
-                            VIEW CODE
-                        </a>
-                        <a
-                            href="https://github.com/Okanagan-Marine-Robotics/tune_gui/blob/main/README.md"
-                            className={cards['project-link']}
-                        >
-                            DOCUMENTATION
+                            <Github size={18} /> Code
                         </a>
                     </div>
                 </section>
 
-                <h2>DATASET SYSTEM FOR MOVIES</h2>
                 <section className={cards['card']}>
-                    <p className={cards['project-year']}>2023</p>
+                    <div className={cards['card-header']}>
+                        <h2>Movie Dataset</h2>
+                        <span className={cards['project-year']}>2023</span>
+                    </div>
                     <p>
-                        A full-stack movie recommendation website using Next.js and FastAPI. Created for COSC 310 -
-                        Software Engineering. Features user authentication, movie ratings, and personalized
-                        recommendations based on user preferences. Includes comprehensive CI/CD using GitHub Actions and
-                        Docker, and a full test suite with PyTest.
+                        A full-stack movie recommendation website using Next.js and FastAPI. Features user
+                        authentication, movie ratings, and personalized recommendations based on user preferences.
                     </p>
                     <div className={cards['tags']}>
-                        <span className={cards['tag']}>Next.js</span>
-                        <span className={cards['tag']}>FastAPI</span>
-                        <span className={cards['tag']}>TypeScript</span>
+                        {['Next.js', 'FastAPI', 'TypeScript', 'Machine Learning'].map(renderTag)}
                     </div>
                     <div className={cards['project-links']}>
                         <a
@@ -125,56 +134,11 @@ export default function Projects() {
                             rel="noopener noreferrer"
                             className={cards['project-link']}
                         >
-                            VIEW CODE
-                        </a>
-                        <a
-                            href="https://github.com/Null-Pointers-2/COSC-310-Project-2025/blob/main/README.md"
-                            className={cards['project-link']}
-                        >
-                            DOCUMENTATION
-                        </a>
-                    </div>
-                </section>
-
-                <h2>MINECRAFT MODS</h2>
-                <section className={cards['card']}>
-                    <p className={cards['project-year']}>2021</p>
-                    <p>
-                        I develop and maintain numerous Minecraft mods using Java and (Neo)Forge/Fabric. I personally
-                        have over 6 million CurseForge downloads, and I&apos;ve contributed to other mods with download
-                        counts in the millions.
-                    </p>
-                    <div className={cards['tags']}>
-                        <span className={cards['tag']}>Java</span>
-                        <span className={cards['tag']}>Gradle</span>
-                        <span className={cards['tag']}>Kotlin</span>
-                    </div>
-                    <div className={cards['project-links']}>
-                        <a
-                            href="https://www.curseforge.com/members/evanbones/projects"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={cards['project-link']}
-                        >
-                            CURSEFORGE
-                        </a>
-                        <a
-                            href="https://modrinth.com/user/evanbones"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={cards['project-link']}
-                        >
-                            MODRINTH
+                            <Github size={18} /> Code
                         </a>
                     </div>
                 </section>
             </div>
-
-            <Footer />
-        </>
+        </AppLayout>
     );
-}
-
-export function getStaticProps() {
-    return { props: {} };
 }

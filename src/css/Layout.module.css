@@ -1,81 +1,74 @@
 .nav-bar {
-    background: var(--bg-surface);
-    padding: 1.5rem 2rem;
+    background: var(--color-raised-bg);
+    padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: sticky;
     top: 0;
     z-index: 100;
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid var(--color-border);
 }
 
 .nav-left .home-link {
-    font-family: 'Inter', sans-serif;
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: var(--text-body);
-    letter-spacing: -0.5px;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    transition:
-        transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-        color 0.2s ease;
+    color: var(--color-text-main);
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .nav-left .home-link:hover {
-    color: var(--accent-hover);
-    transform: scale(1.15) rotate(-5deg);
+    color: var(--color-brand);
+    transform: scale(1.1);
 }
 
 .nav-right {
     display: flex;
-    gap: 2rem;
+    gap: 1.5rem;
     align-items: center;
 }
 
 .nav-right a {
-    color: var(--text-body);
+    color: var(--color-text-muted);
     font-weight: 600;
     font-size: 0.95rem;
-    text-decoration: underline;
-    text-decoration-thickness: 2px;
-    text-underline-offset: 4px;
+    text-decoration: none;
+    transition: color 0.2s ease;
 }
 
 .nav-right a:hover {
-    color: var(--accent-hover);
-    text-decoration-color: var(--accent-hover);
+    color: var(--color-text-main);
 }
 
 .container {
     max-width: 1100px;
     margin: 0 auto;
-    padding: 4rem 2rem;
+    padding: 2rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 1.5rem;
 }
 
 .page-header {
     text-align: center;
-    margin-bottom: 4rem;
+    margin-bottom: 3rem;
 }
 
 .page-header h1 {
-    font-size: 3.5rem;
+    font-size: 3rem;
     font-weight: 800;
-    color: var(--text-header);
-    text-transform: uppercase;
-
-    text-shadow: 6px 6px 0 #000000;
+    color: var(--color-text-main);
+    letter-spacing: -2px;
 }
 
 .footer {
-    background: var(--bg-surface);
-    padding: 4rem 2rem;
-    margin-top: 6rem;
+    background: var(--color-raised-bg);
+    padding: 3rem 2rem;
+    margin-top: 4rem;
     text-align: center;
-    color: var(--text-body);
-    border-top: 1px solid #000;
+    color: var(--color-text-muted);
+    border-top: 1px solid var(--color-border);
 }
 
 .footer-links {
@@ -86,19 +79,10 @@
 }
 
 .footer-links a {
-    text-decoration: underline;
-    text-underline-offset: 4px;
+    text-decoration: none;
+    color: var(--color-text-main);
 }
 
 .footer-links a:hover {
-    color: var(--accent-hover);
-}
-
-@media (max-width: 768px) {
-    .nav-bar {
-        padding: 1rem;
-    }
-    .page-header h1 {
-        font-size: 2.5rem;
-    }
+    color: var(--color-brand);
 }

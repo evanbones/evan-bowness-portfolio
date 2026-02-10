@@ -1,10 +1,8 @@
 import Head from 'next/head';
 import { useState } from 'react';
-import Footer from '../components/Footer';
-import Header from '../components/Header';
+import AppLayout from '../components/AppLayout';
 import cards from '../css/Card.module.css';
 import home from '../css/Home.module.css';
-import layout from '../css/Layout.module.css';
 
 export default function Home() {
     const [formData, setFormData] = useState({
@@ -17,7 +15,6 @@ export default function Home() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-
         const myForm = e.target as HTMLFormElement;
         const data = new FormData(myForm);
 
@@ -29,50 +26,49 @@ export default function Home() {
             .then(() => {
                 setFormData({ name: '', email: '', message: '' });
                 setStatus('Message received! Thanks!');
-
                 setTimeout(() => setStatus(''), 5000);
             })
             .catch((error) => setStatus('Error sending message. Please try again.'));
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value
-        });
+        setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
     return (
-        <>
+        <AppLayout>
             <Head>
-                <title>Evan Bowness - Junior Developer</title>
+                <title>Evan Bowness - Developer</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </Head>
 
-            <Header />
+            <div className={cards['header-widget']}>
+                <h1>Evan Bowness</h1>
+                <p>Full Stack Developer & Open Source Contributor</p>
+            </div>
 
-            <div className={layout.container}>
-                <header className={home.hero}>
-                    <div className={cards['card']} style={{ display: 'inline-block', padding: '3rem 4rem' }}>
-                        <h1>EVAN BOWNESS</h1>
-                    </div>
-                    <p className={home.subtitle} style={{ marginBottom: 0 }}>
-                        Developer & Creator
-                    </p>
-                </header>
-                <h2>WELCOME</h2>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                 <section className={cards['card']}>
-                    <p>
-                        I&apos;m a full stack developer based in Canada with a focus on system design. My background
-                        includes work in the Minecraft modding community, where I learned Java and how to use Git.
-                        I&apos;ve also written software using VB.net, Python, FastAPI, and Next.js.
-                    </p>
-                    <p>Check out my work, read my thoughts, or get in touch below.</p>
+                    <div className={cards['card-header']}>
+                        <h2>About Me</h2>
+                    </div>
+                    <div style={{ padding: '0 1.5rem 1.5rem' }}>
+                        <p style={{ padding: 0, marginBottom: '1rem' }}>
+                            I&apos;m Evan, a developer based in Canada with a passion for system design and open source
+                            software.
+                        </p>
+                        <p style={{ padding: 0 }}>
+                            My background includes extensive work in the Minecraft modding community, alongside modern
+                            web technologies like Next.js, FastAPI, and Python.
+                        </p>
+                    </div>
                 </section>
 
-                <h2>GET IN TOUCH</h2>
                 <section className={`${cards['card']} ${home['contact-section']}`}>
-                    <p>Have a project in mind? Let&apos;s work together!</p>
+                    <div className={cards['card-header']}>
+                        <h2 style={{ marginBottom: '1rem' }}>Quick Contact</h2>
+                    </div>
+
                     <form
                         name="contact"
                         method="POST"
@@ -88,9 +84,11 @@ export default function Home() {
                                 type="text"
                                 id="name"
                                 name="name"
+                                placeholder="Your Name"
                                 value={formData.name}
                                 onChange={handleChange}
                                 required
+                                className={home.input}
                             />
                         </div>
                         <div className={home['form-group']}>
@@ -99,9 +97,11 @@ export default function Home() {
                                 type="email"
                                 id="email"
                                 name="email"
+                                placeholder="name@example.com"
                                 value={formData.email}
                                 onChange={handleChange}
                                 required
+                                className={home.input}
                             />
                         </div>
                         <div className={home['form-group']}>
@@ -109,27 +109,23 @@ export default function Home() {
                             <textarea
                                 id="message"
                                 name="message"
-                                rows={5}
+                                rows={4}
+                                placeholder="How can I help you?"
                                 value={formData.message}
                                 onChange={handleChange}
                                 required
+                                className={home.input}
                             />
                         </div>
 
                         <button type="submit" className={home['submit-btn']}>
-                            SEND MESSAGE
+                            Send Message
                         </button>
 
                         {status && <div className={home['success-message']}>{status}</div>}
                     </form>
-
-                    <p className={home['contact-email']}>
-                        Or email me directly at: <a href="mailto:bownessevan@gmail.com">bownessevan@gmail.com</a>
-                    </p>
                 </section>
             </div>
-
-            <Footer />
-        </>
+        </AppLayout>
     );
 }
