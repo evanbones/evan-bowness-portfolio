@@ -21,7 +21,8 @@
         "react-dom": "^19.2.3",
         "react-syntax-highlighter": "^15.6.1",
         "spotify-web-api-node": "^5.0.2",
-        "tailwindcss": "^4.0.12"
+        "tailwindcss": "^4.0.12",
+        "use-debounce": "^10.1.0"
     },
     "devDependencies": {
         "@stackbit/cms-git": "^1.0.30",
