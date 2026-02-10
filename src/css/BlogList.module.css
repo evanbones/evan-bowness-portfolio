@@ -16,8 +16,6 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    position: sticky;
-    top: 1rem;
 }
 
 .filterWidget {
@@ -246,7 +244,7 @@
 }
 
 .hiddenSelect option {
-    background-color: var(--color-raised-bg);
+    background-color: var(--color-input-bg);
     color: var(--color-text-main);
     padding: 10px;
 }
@@ -258,8 +256,9 @@
 .activeFiltersSummary {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.75rem;
     flex-wrap: wrap;
+    margin-top: 0.5rem;
 }
 
 .clearAllBtn {
@@ -275,23 +274,24 @@
 .clearAllBtn:hover {
     text-decoration: underline;
 }
-
 .summaryPill {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 4px;
-    padding: 4px 8px;
-    background: var(--color-raised-bg);
-    border: 1px solid var(--color-border);
-    border-radius: 4px;
-    font-size: 0.8rem;
-    color: var(--color-text-main);
+    gap: 8px;
+    padding: 6px 14px;
+    background: var(--color-brand-dim); /* Uses your existing variable */
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    border-radius: 99px; /* Smooth pill shape */
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-brand);
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.2s ease;
 }
 
 .summaryPill:hover {
-    border-color: #ff5555;
+    background: rgba(255, 85, 85, 0.1);
+    border-color: rgba(255, 85, 85, 0.4);
     color: #ff5555;
 }
 
@@ -312,6 +312,16 @@
     padding: 0 !important;
     display: flex;
     flex-direction: column;
+    border: 1px solid transparent;
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.blogCard:hover {
+    background-color: var(--color-raised-hover);
+    border-color: var(--color-brand);
+    transform: none !important;
 }
 
 .cardImageContainer {
@@ -326,11 +336,6 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease;
-}
-
-.blogCard:hover .cardImageContainer img {
-    transform: scale(1.05);
 }
 
 .cardOverlayScore {
@@ -381,6 +386,10 @@
     overflow: hidden;
 }
 
+.blogCard:hover .cardTitle {
+    text-decoration: underline;
+}
+
 .cardArtist {
     font-size: 1rem;
     color: var(--color-text-muted);
@@ -411,43 +420,50 @@
 .pagination {
     display: flex;
     align-items: center;
-    gap: 0.4rem;
+    gap: 0.25rem;
 }
 
 .pageBtn {
-    width: 36px;
-    height: 36px;
+    width: 38px;
+    height: 38px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--color-raised-bg);
-    border: 1px solid var(--color-border);
+    background: transparent;
+    border: none;
     color: var(--color-text-muted);
-    font-weight: 700;
-    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-radius: 50%;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.2s ease;
 }
 
-.pageBtn:hover:not(:disabled) {
+.pageBtn:hover:not(:disabled):not(.active) {
     background-color: var(--color-raised-hover);
     color: var(--color-text-main);
 }
 
 .pageBtn.active {
     background-color: var(--color-brand);
-    color: #fff;
-    border-color: var(--color-brand);
+    color: var(--color-text-main);
+    font-weight: 800;
 }
 
 .pageBtn.active:hover {
     background-color: #c084fc;
-    border-color: #c084fc;
+    filter: brightness(1.1);
 }
 
 .pageBtn:disabled {
-    opacity: 0.3;
+    visibility: hidden;
+    pointer-events: none;
     cursor: default;
+}
+
+.pagination span {
+    color: var(--color-text-muted);
+    padding: 0 8px;
 }
 
 .bottomPagination {
