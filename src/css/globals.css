@@ -2,22 +2,17 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
 
 :root {
-    /* -- User Requested Colors -- */
-    --color-bg: #16181c; /* Background */
-    --color-raised-bg: #27292e; /* Cards */
-    --color-input-bg: #34363c; /* New: Input fields */
-    --color-brand: #a855f7; /* Brand: Purple */
+    --color-bg: #16181c;
+    --color-raised-bg: #27292e;
+    --color-input-bg: #34363c;
+    --color-brand: #a855f7;
 
-    /* -- Derived/Updated Colors -- */
-    /* Updated borders to match your input color for a clean look */
     --color-border: #34363c;
-    /* Hover state slightly lighter than the card background */
     --color-raised-hover: #34363c;
 
     --color-text-main: #e2e8f0;
     --color-text-muted: #94a3b8;
 
-    /* Updated brand dim to match the new purple */
     --color-brand-dim: rgba(168, 85, 247, 0.15);
 
     --radius-xl: 24px;

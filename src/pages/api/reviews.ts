@@ -14,12 +14,13 @@ type Review = {
 };
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
-    let { page = '1', limit = '12', search = '', sort = 'latest', scores = '' } = req.query;
+    let { page = '1', limit = '12', search = '', sort = 'latest', scores = '', genres = '' } = req.query;
 
     const pageNum = parseInt(page as string);
     const limitNum = parseInt(limit as string);
 
     const selectedScores = scores ? (scores as string).split(',').map(Number) : [];
+    const selectedGenres = genres ? (genres as string).split(',').map((g) => g.trim().toLowerCase()) : [];
 
     let filtered = reviewsData.filter((r: Review) => {
         const matchesSearch =
@@ -30,7 +31,10 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
         const matchesScore = selectedScores.length > 0 ? selectedScores.includes(r.score) : true;
 
-        return matchesSearch && matchesScore;
+        const matchesGenre =
+            selectedGenres.length > 0 ? r.genres.some((g) => selectedGenres.includes(g.toLowerCase())) : true;
+
+        return matchesSearch && matchesScore && matchesGenre;
     });
 
     filtered.sort((a: Review, b: Review) => {
