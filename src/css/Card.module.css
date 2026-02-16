@@ -12,11 +12,14 @@
 }
 
 .card:hover {
-    transform: translateY(-5px);
+    background-color: var(--color-raised-hover);
     border-color: var(--color-brand);
     box-shadow:
         0 10px 15px -3px rgba(0, 0, 0, 0.3),
         0 0 15px var(--color-brand-dim);
+
+    --color-input-bg: #4a4d56;
+    --color-border: #4a4d56;
 }
 
 .card-header {

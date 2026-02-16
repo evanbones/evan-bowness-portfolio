@@ -1,5 +1,5 @@
 import AppLayout from '@/components/AppLayout';
-import { Briefcase, Code, Coffee, User } from 'lucide-react';
+import { Briefcase, Code, Coffee, Terminal, User } from 'lucide-react';
 import Head from 'next/head';
 import cards from '../css/Card.module.css';
 import layout from '../css/Layout.module.css';
@@ -41,6 +41,19 @@ export default function Info() {
                         I&apos;m currently working towards finishing my degree in Computer Science at the University of
                         British Columbia. My main learning focuses are full-stack development with React, Next.js,
                         TypeScript, database management software, and FastAPI.
+                    </p>
+                </section>
+
+                <section className={cards['card']}>
+                    <div className={cards['card-header']}>
+                        <h2>
+                            <Terminal className="text-brand" size={24} /> Tech Stack
+                        </h2>
+                    </div>
+                    <p>
+                        I enjoy working with most web technologies, but I&apos;m most comfortable with React, Next.js,
+                        and TypeScript on the frontend, and with Node.js, Python/FastAPI, or SQL databases for the
+                        backend.
                     </p>
                 </section>
 

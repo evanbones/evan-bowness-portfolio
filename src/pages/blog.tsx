@@ -1,5 +1,5 @@
 import AppLayout from '@/components/AppLayout';
-import { ChevronDown, Search, X } from 'lucide-react';
+import { ChevronDown, ChevronLeft, ChevronRight, Search, X } from 'lucide-react';
 import Head from 'next/head';
 import { useCallback, useEffect, useState } from 'react';
 import { useDebounce } from 'use-debounce';
@@ -308,8 +308,9 @@ export default function Blog() {
                     className={styles.pageBtn}
                     onClick={() => changePage(Math.max(1, page - 1), isBottom)}
                     disabled={page === 1}
+                    aria-label="Previous page"
                 >
-                    &lt;
+                    <ChevronLeft size={20} />
                 </button>
                 {pages.map((p, idx) =>
                     p === -1 ? (
@@ -330,8 +331,9 @@ export default function Blog() {
                     className={styles.pageBtn}
                     onClick={() => changePage(Math.min(totalPages, page + 1), isBottom)}
                     disabled={page === totalPages}
+                    aria-label="Next page"
                 >
-                    &gt;
+                    <ChevronRight size={20} />
                 </button>
             </div>
         );
@@ -345,7 +347,7 @@ export default function Blog() {
 
             <div className={cardStyles['header-widget']}>
                 <h1>The Collection</h1>
-                <p>Database of {totalItems} albums reviewed.</p>
+                <p>{totalItems} albums currently visible.</p>
             </div>
 
             <div className={styles.layout}>

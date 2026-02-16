@@ -18,7 +18,7 @@ export default function Home() {
         const myForm = e.target as HTMLFormElement;
         const data = new FormData(myForm);
 
-        fetch('/', {
+        fetch('/__forms.html', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: new URLSearchParams(data as any).toString()
@@ -58,8 +58,8 @@ export default function Home() {
                             software.
                         </p>
                         <p style={{ padding: 0 }}>
-                            My background includes extensive work in the Minecraft modding community, alongside modern
-                            web technologies like Next.js, FastAPI, and Python.
+                            My background includes work in the Minecraft modding community, as well as work with
+                            languages and web technologies like Next.js, FastAPI, C, Java, VB.NET, and Python.
                         </p>
                     </div>
                 </section>

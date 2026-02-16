@@ -1,4 +1,5 @@
 import AppLayout from '@/components/AppLayout';
+import ImageCarousel from '@/components/ImageCarousel';
 import { ExternalLink, Github } from 'lucide-react';
 import Head from 'next/head';
 import cards from '../css/Card.module.css';
@@ -42,9 +43,12 @@ export default function Projects() {
 
             <div className={layout.grid}>
                 <section className={cards['card']}>
+                    <ImageCarousel
+                        images={['/images/portfolio-1.png', '/images/portfolio-2.png', '/images/portfolio-3.png']}
+                    />
                     <div className={cards['card-header']}>
                         <h2>Portfolio Website</h2>
-                        <span className={cards['project-year']}>2025</span>
+                        <span className={cards['project-year']}>2026</span>
                     </div>
                     <p>
                         A simple and modern personal portfolio and music blog featuring interactive elements, smooth
@@ -69,6 +73,7 @@ export default function Projects() {
                 </section>
 
                 <section className={cards['card']}>
+                    <ImageCarousel images={['/images/igifup-1.png', '/images/igifup-2.png']} />
                     <div className={cards['card-header']}>
                         <h2>iGIFup</h2>
                         <span className={cards['project-year']}>2025</span>
@@ -94,6 +99,7 @@ export default function Projects() {
                 </section>
 
                 <section className={cards['card']}>
+                    <ImageCarousel images={['/images/tune-gui-1.jpg', '/images/tune-gui-2.jpg']} />
                     <div className={cards['card-header']}>
                         <h2>Tune GUI</h2>
                         <span className={cards['project-year']}>2025</span>
@@ -116,9 +122,10 @@ export default function Projects() {
                 </section>
 
                 <section className={cards['card']}>
+                    <ImageCarousel images={['/images/movie-dataset-1.png', '/images/movie-dataset-2.png']} />
                     <div className={cards['card-header']}>
                         <h2>Movie Dataset</h2>
-                        <span className={cards['project-year']}>2023</span>
+                        <span className={cards['project-year']}>2025</span>
                     </div>
                     <p>
                         A full-stack movie recommendation website using Next.js and FastAPI. Features user

@@ -31,7 +31,9 @@
     border-radius: 8px;
     font-family: inherit;
     font-size: 1rem;
-    transition: border-color 0.2s ease;
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease;
 }
 
 .input:focus {
