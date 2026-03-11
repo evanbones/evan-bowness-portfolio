@@ -25,9 +25,6 @@ export default function Footer({ style }: FooterProps) {
                         <Link href="/" className={styles.link}>
                             Home
                         </Link>
-                        <Link href="/info" className={styles.link}>
-                            Info
-                        </Link>
                         <Link href="/projects" className={styles.link}>
                             Projects
                         </Link>

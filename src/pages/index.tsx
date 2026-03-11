@@ -1,131 +1,112 @@
+import AppLayout from '@/components/AppLayout';
+import { Briefcase, Code, Coffee, Terminal, User } from 'lucide-react';
 import Head from 'next/head';
-import { useState } from 'react';
-import AppLayout from '../components/AppLayout';
 import cards from '../css/Card.module.css';
-import home from '../css/Home.module.css';
+import layout from '../css/Layout.module.css';
 
 export default function Home() {
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        message: ''
-    });
-
-    const [status, setStatus] = useState('');
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        const myForm = e.target as HTMLFormElement;
-        const data = new FormData(myForm);
-
-        fetch('/__forms.html', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams(data as any).toString()
-        })
-            .then(() => {
-                setFormData({ name: '', email: '', message: '' });
-                setStatus('Message received! Thanks!');
-                setTimeout(() => setStatus(''), 5000);
-            })
-            .catch((error) => setStatus('Error sending message. Please try again.'));
-    };
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-
     return (
         <AppLayout>
             <Head>
-                <title>Evan Bowness - Developer</title>
+                <title>Home - Evan Bowness</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </Head>
 
             <div className={cards['header-widget']}>
-                <h1>Evan Bowness</h1>
-                <p>Full Stack Developer & Open Source Contributor</p>
+                <h1>About Me</h1>
+                <p>Who I am and what I do.</p>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+            <div className={layout.grid} style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))' }}>
                 <section className={cards['card']}>
                     <div className={cards['card-header']}>
-                        <h2>About Me</h2>
+                        <h2>
+                            <User className="text-brand" size={24} /> Who I Am
+                        </h2>
                     </div>
-                    <div style={{ padding: '0 1.5rem 1.5rem' }}>
-                        <p style={{ padding: 0, marginBottom: '1rem' }}>
-                            I&apos;m Evan, a developer based in Canada with a passion for system design and open source
-                            software.
-                        </p>
-                        <p style={{ padding: 0 }}>
-                            My background includes work in the Minecraft modding community, as well as work with
-                            languages and web technologies like Next.js, FastAPI, C, Java, VB.NET, and Python.
-                        </p>
+                    <p>
+                        Hey there! I&apos;m Evan, a student developer passionate about building creative projects that
+                        push my skills. I enjoy working with modern frameworks and learning new technologies, while
+                        improving my system design skills.
+                    </p>
+                </section>
+
+                <section className={cards['card']}>
+                    <div className={cards['card-header']}>
+                        <h2>
+                            <Code className="text-brand" size={24} /> What I Do
+                        </h2>
+                    </div>
+                    <p>
+                        I&apos;m currently working towards finishing my degree in Computer Science at the University of
+                        British Columbia. My main learning focuses are full-stack development, database management, and
+                        system design.
+                    </p>
+                </section>
+
+                <section className={cards['card']}>
+                    <div className={cards['card-header']}>
+                        <h2>
+                            <Terminal className="text-brand" size={24} /> Background
+                        </h2>
+                    </div>
+                    <p>
+                        My background includes work in the Minecraft modding community, as well as work with languages
+                        and technologies like React, FastAPI, C, Java, Python, Next.js, and VB.NET.
+                    </p>
+                </section>
+
+                <section className={cards['card']} style={{ gridColumn: '1 / -1' }}>
+                    <div className={cards['card-header']}>
+                        <h2>
+                            <Briefcase className="text-brand" size={24} /> Experience
+                        </h2>
+                    </div>
+                    <div className={cards.timeline}>
+                        <div className={cards['timeline-item']}>
+                            <h3>Okanagan Marine Robotics Sub-Team Member</h3>
+                            <div style={{ marginBottom: '0.5rem', opacity: 0.7, fontSize: '0.9rem' }}>
+                                2025 - Present
+                            </div>
+                            <p>Writing software as part of the integration team in the UBCO Marine Robotics Club.</p>
+                        </div>
+                        <div className={cards['timeline-item']}>
+                            <h3>Junior Developer</h3>
+                            <div style={{ marginBottom: '0.5rem', opacity: 0.7, fontSize: '0.9rem' }}>
+                                2024 - Present
+                            </div>
+                            <p>
+                                Creating Python automations and helping to develop a VB.NET inventory management
+                                application for Valhalla Pure Outfitters.
+                            </p>
+                        </div>
+                        <div className={cards['timeline-item']}>
+                            <h3>University Student</h3>
+                            <div style={{ marginBottom: '0.5rem', opacity: 0.7, fontSize: '0.9rem' }}>2023 - 2028</div>
+                            <p>
+                                Currently taking Computer Science (BSc) with a Minor in Mathematics at the University of
+                                British Columbia.
+                            </p>
+                        </div>
                     </div>
                 </section>
 
-                <section className={`${cards['card']} ${home['contact-section']}`}>
+                <section className={cards['card']} style={{ gridColumn: '1 / -1' }}>
                     <div className={cards['card-header']}>
-                        <h2 style={{ marginBottom: '1rem' }}>Quick Contact</h2>
+                        <h2>
+                            <Coffee className="text-brand" size={24} /> When I&apos;m Not Coding
+                        </h2>
                     </div>
-
-                    <form
-                        name="contact"
-                        method="POST"
-                        data-netlify="true"
-                        onSubmit={handleSubmit}
-                        className={home['contact-form']}
-                    >
-                        <input type="hidden" name="form-name" value="contact" />
-
-                        <div className={home['form-group']}>
-                            <label htmlFor="name">Name</label>
-                            <input
-                                type="text"
-                                id="name"
-                                name="name"
-                                placeholder="Your Name"
-                                value={formData.name}
-                                onChange={handleChange}
-                                required
-                                className={home.input}
-                            />
-                        </div>
-                        <div className={home['form-group']}>
-                            <label htmlFor="email">Email</label>
-                            <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                placeholder="name@example.com"
-                                value={formData.email}
-                                onChange={handleChange}
-                                required
-                                className={home.input}
-                            />
-                        </div>
-                        <div className={home['form-group']}>
-                            <label htmlFor="message">Message</label>
-                            <textarea
-                                id="message"
-                                name="message"
-                                rows={4}
-                                placeholder="How can I help you?"
-                                value={formData.message}
-                                onChange={handleChange}
-                                required
-                                className={home.input}
-                            />
-                        </div>
-
-                        <button type="submit" className={home['submit-btn']}>
-                            Send Message
-                        </button>
-
-                        {status && <div className={home['success-message']}>{status}</div>}
-                    </form>
+                    <p>
+                        You&apos;ll usually find me listening to new music, reading a book, drinking coffee, watching
+                        movies, hiking, playing games, or producing music.
+                    </p>
                 </section>
             </div>
         </AppLayout>
     );
+}
+
+export function getStaticProps() {
+    return { props: {} };
 }

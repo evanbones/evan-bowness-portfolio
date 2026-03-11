@@ -1,4 +1,4 @@
-import { BookOpen, Code, Github, Home, Menu, User, X } from 'lucide-react';
+import { BookOpen, Code, Github, Home, Menu, X } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -19,7 +19,6 @@ export default function AppLayout({ children }: AppLayoutProps) {
 
     const navItems = [
         { icon: Home, label: 'Home', path: '/' },
-        { icon: User, label: 'Info', path: '/info' },
         { icon: Code, label: 'Projects', path: '/projects' },
         { icon: BookOpen, label: 'Blog', path: '/blog' }
     ];
@@ -28,8 +27,12 @@ export default function AppLayout({ children }: AppLayoutProps) {
         <div className={styles.appContainer}>
             <nav className={styles.navbar}>
                 <div className={styles.navLeft}>
-                    <div className={styles.brandDot}></div>
-                    <span className={styles.brandName}>EVAN.DEV</span>
+                    <Link href="/" className={styles.link}>
+                        <div className={styles.brandDot}></div>
+                    </Link>
+                    <Link href="/" className={styles.link}>
+                        <span className={styles.brandName}>EVAN.DEV</span>
+                    </Link>
                 </div>
 
                 <div className={styles.navLinks}>
