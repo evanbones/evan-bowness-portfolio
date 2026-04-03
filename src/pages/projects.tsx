@@ -38,7 +38,7 @@ export default function Projects() {
 
             <div className={cards['header-widget']}>
                 <h1>Projects</h1>
-                <p>A collection of my work in web development, robotics, and software engineering.</p>
+                <p>My work in web development, robotics, and software engineering</p>
             </div>
 
             <div className={layout.grid}>
@@ -51,8 +51,8 @@ export default function Projects() {
                         <span className={cards['project-year']}>2026</span>
                     </div>
                     <p>
-                        A simple and modern personal portfolio and music blog featuring interactive elements, smooth
-                        animations, and a clean aesthetic. Built with Next.js and custom CSS.
+                        A simple and modern personal portfolio and music blog with interactive elements, smooth
+                        animations, and a clean aesthetic. Made with Next.js and custom CSS.
                     </p>
                     <div className={cards['tags']}>
                         {['Next.js', 'React', 'TypeScript', 'CSS Modules'].map(renderTag)}
@@ -137,6 +137,29 @@ export default function Projects() {
                     <div className={cards['project-links']}>
                         <a
                             href="https://github.com/Null-Pointers-2/COSC-310-Project-2025"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={cards['project-link']}
+                        >
+                            <Github size={18} /> Code
+                        </a>
+                    </div>
+                </section>
+
+                <section className={cards['card']}>
+                    <ImageCarousel images={['/images/townsquare-1.png', '/images/townsquare-2.png']} />
+                    <div className={cards['card-header']}>
+                        <h2>Town Square</h2>
+                        <span className={cards['project-year']}>2025</span>
+                    </div>
+                    <p>
+                        A hackathon project to create a platform to connect businesses with customers in local
+                        communities.
+                    </p>
+                    <div className={cards['tags']}>{['React', 'Flask', 'PostgreSQL'].map(renderTag)}</div>
+                    <div className={cards['project-links']}>
+                        <a
+                            href="https://github.com/evanbones/Town-Square"
                             target="_blank"
                             rel="noopener noreferrer"
                             className={cards['project-link']}

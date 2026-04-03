@@ -347,7 +347,7 @@ export default function Blog() {
 
             <div className={cardStyles['header-widget']}>
                 <h1>The Collection</h1>
-                <p>{totalItems} albums currently visible.</p>
+                <p>{totalItems} albums currently visible</p>
             </div>
 
             <div className={styles.layout}>

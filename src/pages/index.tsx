@@ -14,7 +14,7 @@ export default function Home() {
 
             <div className={cards['header-widget']}>
                 <h1>About Me</h1>
-                <p>Who I am and what I do.</p>
+                <p>Who I am and what I do</p>
             </div>
 
             <div className={layout.grid} style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))' }}>
@@ -25,9 +25,8 @@ export default function Home() {
                         </h2>
                     </div>
                     <p>
-                        Hey there! I&apos;m Evan, a student developer passionate about building creative projects that
-                        push my skills. I enjoy working with modern frameworks and learning new technologies, while
-                        improving my system design skills.
+                        Hey there! I&apos;m Evan. I&apos;m a Computer Science/Mathematics student at the University of
+                        British Columbia. This site is a portfolio of my work and a bit about my background.
                     </p>
                 </section>
 
@@ -38,9 +37,9 @@ export default function Home() {
                         </h2>
                     </div>
                     <p>
-                        I&apos;m currently working towards finishing my degree in Computer Science at the University of
-                        British Columbia. My main learning focuses are full-stack development, database management, and
-                        system design.
+                        I&apos;m currently working towards finishing my degree in Computer Science. My main focuses of
+                        study are full-stack development, database management, and system design. In my free time, I
+                        work on various programming projects and contribute to open-source software.
                     </p>
                 </section>
 
