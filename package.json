@@ -9,17 +9,20 @@
         "review": "node scripts/add-review.js"
     },
     "dependencies": {
+        "@highlightjs/cdn-assets": "^11.11.1",
         "@tailwindcss/postcss": "^4.0.12",
         "classnames": "^2.5.1",
         "dayjs": "^1.11.11",
         "dotenv": "^17.2.3",
         "front-matter": "^4.0.2",
+        "jszip": "^3.10.1",
         "lucide-react": "^0.563.0",
         "markdown-to-jsx": "^7.7.1",
         "next": "^16.1.4",
         "react": "^19.2.3",
         "react-dom": "^19.2.3",
         "react-syntax-highlighter": "^15.6.1",
+        "simple-jsx-handler": "^1.2.8",
         "spotify-web-api-node": "^5.0.2",
         "tailwindcss": "^4.0.12",
         "use-debounce": "^10.1.0"
@@ -31,6 +34,7 @@
         "@types/glob": "^8.1.0",
         "@types/react": "^19.0.1",
         "@types/react-syntax-highlighter": "^15.5.13",
+        "esbuild": "^0.28.0",
         "eslint": "^9.21.0",
         "eslint-config-next": "^15.2.0",
         "js-yaml": "^4.1.0",
